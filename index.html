@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Table des chapitres</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script src="assets/reader.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#chapitres">Aller aux chapitres</a>
+
+  <header class="site-topline" aria-label="Réglages du site">
+    <div class="site-tools">
+      <a class="home-link" href="index.html" aria-current="page">Table</a>
+      <div class="reader-actions" aria-label="Réglages de lecture">
+        <button class="reader-button" type="button" data-font-decrease aria-label="Réduire la taille du texte" title="Réduire la taille du texte">A−</button>
+        <button class="reader-button" type="button" data-font-reset aria-label="Réinitialiser la taille du texte" title="Réinitialiser la taille du texte">A</button>
+        <button class="reader-button" type="button" data-font-increase aria-label="Augmenter la taille du texte" title="Augmenter la taille du texte">A+</button>
+        <button class="reader-button" type="button" data-theme-toggle aria-label="Passer au thème nuit" title="Passer au thème nuit">☾</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="home">
+    <header class="site-header">
+      <div class="kicker">Roman</div>
+      <h1>Table des chapitres</h1>
+      <div class="rule"></div>
+      <p class="subtitle">Version de lecture web</p>
+      <p class="home-intro">Une entrée simple vers les chapitres mis en page, pensée pour une lecture longue sur écran et prête à être servie par GitHub Pages.</p>
+    </header>
+
+    <section class="library" id="chapitres" aria-labelledby="chapitres-title">
+      <div class="library-head">
+        <h2 class="section-label" id="chapitres-title">Chapitres disponibles</h2>
+        <span class="library-count">1 chapitre</span>
+      </div>
+
+      <ol class="chapter-list">
+        <li class="chapter-card">
+          <a class="chapter-link" href="chapitres/bal-des-trois-lunes.html">
+            <span class="chapter-number">Chapitre</span>
+            <span>
+              <span class="chapter-title">Le Bal des Trois Lunes</span>
+              <span class="chapter-place">Séricé, sous la coupole des constellations</span>
+              <span class="chapter-excerpt">Lycoris Comnène domine sa propre fête tandis que la nuit, les alliances et les présences plus discrètes se mettent en mouvement.</span>
+            </span>
+            <span class="chapter-arrow" aria-hidden="true">›</span>
+          </a>
+        </li>
+      </ol>
+    </section>
+
+    <footer class="site-footer" aria-hidden="true">✦ ✦ ✦</footer>
+  </main>
+</body>
+</html>
