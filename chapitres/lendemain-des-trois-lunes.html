@@ -19,10 +19,18 @@
     <nav class="reader-bar">
       <a class="reader-link" href="../index.html">Table des chapitres</a>
       <div class="reader-actions" aria-label="Réglages de lecture">
+        <label class="theme-control">
+          <span>Thème</span>
+          <select data-theme-select aria-label="Choisir le thème de lecture">
+            <option value="paper">Papier</option>
+            <option value="night">Nuit</option>
+            <option value="lycoris">Lycoris</option>
+            <option value="lion">Lion</option>
+          </select>
+        </label>
         <button class="reader-button" type="button" data-font-decrease aria-label="Réduire la taille du texte" title="Réduire la taille du texte">A−</button>
         <button class="reader-button" type="button" data-font-reset aria-label="Réinitialiser la taille du texte" title="Réinitialiser la taille du texte">A</button>
         <button class="reader-button" type="button" data-font-increase aria-label="Augmenter la taille du texte" title="Augmenter la taille du texte">A+</button>
-        <button class="reader-button" type="button" data-theme-toggle aria-label="Passer au thème nuit" title="Passer au thème nuit">☾</button>
       </div>
     </nav>
   </header>
@@ -32,6 +40,10 @@
     <h1>Le Lendemain des Trois Lunes</h1>
     <div class="chapter-rule"></div>
     <div class="chapter-subtitle">Séricé, au matin d’après</div>
+    <div class="chapter-meta" aria-label="Longueur du chapitre">
+      <span>15 567 mots</span>
+      <span>1 h 11 de lecture</span>
+    </div>
 
     <section class="opening">
 

@@ -23,15 +23,20 @@
   };
 
   const clamp = value => Math.min(maxScale, Math.max(minScale, value));
+  const themes = ["paper", "night", "lycoris", "lion"];
   let scale = clamp(Number.parseFloat(read(storageKeyScale, "1")) || 1);
   let theme = read(storageKeyTheme, "paper");
+  if (!themes.includes(theme)) {
+    theme = "paper";
+  }
 
   const buttons = {
     decrease: document.querySelectorAll("[data-font-decrease]"),
     reset: document.querySelectorAll("[data-font-reset]"),
-    increase: document.querySelectorAll("[data-font-increase]"),
-    theme: document.querySelectorAll("[data-theme-toggle]")
+    increase: document.querySelectorAll("[data-font-increase]")
   };
+  const themeSelects = document.querySelectorAll("[data-theme-select]");
+  const themeToggles = document.querySelectorAll("[data-theme-toggle]");
   const progress = document.querySelector("[data-reading-progress]");
   const progressBar = progress?.querySelector("[data-reading-progress-bar]");
   let updateReadingProgress = () => {};
@@ -45,7 +50,10 @@
   const applyTheme = () => {
     root.dataset.theme = theme;
     write(storageKeyTheme, theme);
-    buttons.theme.forEach(button => {
+    themeSelects.forEach(select => {
+      select.value = theme;
+    });
+    themeToggles.forEach(button => {
       const isNight = theme === "night";
       button.textContent = isNight ? "☀" : "☾";
       button.setAttribute("aria-pressed", String(isNight));
@@ -75,7 +83,14 @@
     });
   });
 
-  buttons.theme.forEach(button => {
+  themeSelects.forEach(select => {
+    select.addEventListener("change", () => {
+      theme = themes.includes(select.value) ? select.value : "paper";
+      applyTheme();
+    });
+  });
+
+  themeToggles.forEach(button => {
     button.addEventListener("click", () => {
       theme = theme === "night" ? "paper" : "night";
       applyTheme();
