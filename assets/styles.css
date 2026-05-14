@@ -5,6 +5,7 @@
   --muted: #7a685a;
   --gold: #b18a45;
   --soft-gold: #d8c194;
+  --dropcap: #b18a45;
   --sage: #58634d;
   --rose: #8c5d55;
   --line: rgba(177, 138, 69, 0.35);
@@ -24,6 +25,7 @@ html[data-theme="night"] {
   --muted: #bcae9a;
   --gold: #d5ae66;
   --soft-gold: #96784a;
+  --dropcap: #d5ae66;
   --sage: #9aaa87;
   --rose: #c68f82;
   --line: rgba(213, 174, 102, 0.32);
@@ -35,21 +37,22 @@ html[data-theme="night"] {
 }
 
 html[data-theme="lycoris"] {
-  color-scheme: light;
-  --paper: #fff7f8;
-  --paper-strong: #ffffff;
-  --ink: #1f1518;
-  --muted: #5d4a50;
-  --gold: #8f641f;
-  --soft-gold: #b3894a;
-  --sage: #405d4b;
-  --rose: #8f1d43;
-  --line: rgba(143, 29, 67, 0.38);
-  --panel: rgba(255, 255, 255, 0.78);
-  --shadow: rgba(80, 23, 43, 0.12);
+  color-scheme: dark;
+  --paper: #15060c;
+  --paper-strong: #250912;
+  --ink: #fff1f5;
+  --muted: #d9a9b9;
+  --gold: #f0c36d;
+  --soft-gold: #b86a42;
+  --dropcap: #ff4f7d;
+  --sage: #b7caa0;
+  --rose: #ff4f7d;
+  --line: rgba(255, 79, 125, 0.46);
+  --panel: rgba(38, 9, 20, 0.8);
+  --shadow: rgba(0, 0, 0, 0.36);
   --site-bg:
-    radial-gradient(circle at top, rgba(255, 245, 247, 0.96), transparent 36%),
-    linear-gradient(180deg, #fff7f8 0%, #f2e4e7 100%);
+    radial-gradient(circle at top, rgba(112, 13, 45, 0.58), transparent 34%),
+    linear-gradient(180deg, #15060c 0%, #2b0a18 52%, #4a102b 100%);
 }
 
 html[data-theme="lion"] {
@@ -60,6 +63,7 @@ html[data-theme="lion"] {
   --muted: #654f2f;
   --gold: #8d5f00;
   --soft-gold: #c28a25;
+  --dropcap: #8d5f00;
   --sage: #4e5b35;
   --rose: #8a341c;
   --line: rgba(141, 95, 0, 0.4);
@@ -435,7 +439,7 @@ html[data-theme="night"] .page {
 }
 
 html[data-theme="lycoris"] .page {
-  background: rgba(255, 255, 255, 0.64);
+  background: rgba(30, 7, 16, 0.76);
 }
 
 html[data-theme="lion"] .page {
@@ -455,7 +459,7 @@ html[data-theme="lion"] .page {
   font-size: 5.8rem;
   line-height: 0.82;
   padding: 0.1rem 0.55rem 0 0;
-  color: var(--gold);
+  color: var(--dropcap);
   font-weight: 500;
 }
 
