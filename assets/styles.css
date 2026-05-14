@@ -488,26 +488,26 @@ html[data-theme="lion"] .page {
 }
 
 .chapter-page p.dialogue {
-  margin-left: 1.45rem;
+  margin-left: 1.65rem;
   text-align: left;
-  text-indent: -1.45rem;
-  line-height: 1.62;
+  text-indent: -1.65rem;
+  line-height: 1.68;
 }
 
 .chapter-page p.dialogue + p.dialogue {
-  margin-top: -0.65rem;
+  margin-top: -0.35rem;
 }
 
 .chapter-page p:not(.dialogue) + p.dialogue {
-  margin-top: 1.55rem;
+  margin-top: 1.45rem;
 }
 
 .chapter-page p.dialogue + p:not(.dialogue) {
-  margin-top: 1.55rem;
+  margin-top: 1.45rem;
 }
 
 .whisper {
-  color: color-mix(in srgb, var(--ink) 82%, var(--muted));
+  color: var(--ink);
 }
 
 em {
@@ -596,7 +596,7 @@ em {
   .page {
     width: 100%;
     margin-top: 0.9rem;
-    padding: 4.5rem 1.35rem 5.5rem;
+    padding: 4.5rem 1.15rem 5.5rem;
   }
 
   .chapter-subtitle {
@@ -605,6 +605,22 @@ em {
 
   .chapter-page p {
     text-align: left;
+  }
+
+  .chapter-page p.dialogue {
+    margin-left: 0;
+    padding-left: 1.15rem;
+    text-indent: -1.15rem;
+    line-height: 1.72;
+  }
+
+  .chapter-page p.dialogue + p.dialogue {
+    margin-top: -0.12rem;
+  }
+
+  .chapter-page p:not(.dialogue) + p.dialogue,
+  .chapter-page p.dialogue + p:not(.dialogue) {
+    margin-top: 1.25rem;
   }
 
   .reader-bar {
