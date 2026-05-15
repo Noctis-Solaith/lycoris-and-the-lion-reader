@@ -474,6 +474,23 @@ html[data-theme="lion"] .page {
   text-align: center;
 }
 
+.chapter-page blockquote {
+  margin: 2rem 0;
+  padding: 0.1rem 0 0.1rem 1.35rem;
+  border-left: 1px solid var(--line);
+  color: var(--muted);
+  font-style: italic;
+}
+
+.chapter-page blockquote p {
+  margin-bottom: 1rem;
+  text-align: left;
+}
+
+.chapter-page blockquote p:last-child {
+  margin-bottom: 0;
+}
+
 .scene-break {
   margin: 4.5rem auto;
   color: var(--gold);
