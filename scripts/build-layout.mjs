@@ -1,0 +1,580 @@
+import { mkdir, readFile, writeFile } from "node:fs/promises";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
+const scriptDir = path.dirname(fileURLToPath(import.meta.url));
+const layoutRoot = path.resolve(scriptDir, "..");
+const repoRoot = path.resolve(layoutRoot, "..");
+const chaptersDir = path.join(layoutRoot, "chapitres");
+const wordsPerMinute = 219;
+
+const chapters = [
+  {
+    number: 1,
+    title: "Le Bal des Trois Lunes",
+    subtitle: "Séricé, sous la coupole des constellations",
+    source: "chapitres/1_Bal_des_Trois_Lunes/v9.md",
+    output: "bal-des-trois-lunes.html",
+    excerpt:
+      "Lycoris Comnène domine sa propre fête tandis que la nuit, les alliances et les présences plus discrètes se mettent en mouvement."
+  },
+  {
+    number: 2,
+    title: "Le Lendemain des Trois Lunes",
+    subtitle: "Séricé, au matin d’après",
+    source: "chapitres/2_Un_Matin_pour_Deux_Frontieres/v10.md",
+    output: "lendemain-des-trois-lunes.html",
+    excerpt:
+      "Geb Ramses trouve le secret dans un couloir, avant le café, au matin d’une maison encore traversée par la fête."
+  },
+  {
+    number: 3,
+    title: "Les papiers en attente",
+    subtitle: "La Distance des Roses",
+    source: "chapitres/2.1_La_Distance_des_Roses/chapitre_01_sortir_du_bal_vF.md",
+    output: "les-papiers-en-attente.html",
+    excerpt:
+      "Le troisième matin après le Bal des Trois Lunes, Séricé a enfin cessé de briller, mais les traces de la nuit demandent encore leur dû."
+  },
+  {
+    number: 4,
+    title: "Mesures et distances",
+    subtitle: "Frontière de Tyr, royaume de Djinn",
+    source: "chapitres/2.2_Mesures_et_distances/v5.md",
+    output: "mesures-et-distances.html",
+    excerpt:
+      "À la frontière de Tyr, la République mesure les lignes de Djinn tandis que Sirius pèse chaque réponse avant qu’elle ne devienne politique."
+  },
+  {
+    number: 5,
+    title: "Les invitations imprudentes",
+    subtitle: "Pergame, Vinterhavn et autres mensonges utiles",
+    source: "chapitres/2.3_Les_invitations_imprudentes/chapitre_03_v2.md",
+    output: "les-invitations-imprudentes.html",
+    excerpt:
+      "Dans un bureau déjà envahi par les preuves, Lycoris voit les invitations, les bijoux et les rumeurs transformer Vinterhavn en terrain dangereux."
+  },
+  {
+    number: 6,
+    title: "La Baronne radieuse de Vinterhavn",
+    subtitle: "Djinn, Vinterhavn et les alliances que la presse croit découvrir",
+    source: "chapitres/2.4_La_Baronne_Radieuse_de_Vinterhavn/chapitre_04_v2.md",
+    output: "la-baronne-radieuse-de-vinterhavn.html",
+    excerpt:
+      "Quand Le Diwan d'Héliopolis fait de Lycoris une hypothèse diplomatique, la plaisanterie mondaine se change en calcul politique."
+  },
+  {
+    number: 7,
+    title: "Pour le bien de l'armée",
+    subtitle: "Héliopolis, caserne royale",
+    source: "chapitres/2.4bis_Pour_le_bien_de_l_armee/chapitre_04bis_v1.md",
+    output: "pour-le-bien-de-l-armee.html",
+    excerpt:
+      "À la caserne royale, la fatigue du général croise les plaisanteries des officiers, les images de presse et ce que l'armée préfère taire."
+  }
+];
+
+const escapeHtml = value =>
+  value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;");
+
+const inlineMarkdown = value => {
+  const placeholders = [];
+  let html = escapeHtml(value);
+
+  html = html.replace(/`([^`]+)`/g, (_, code) => {
+    const key = `@@CODE${placeholders.length}@@`;
+    placeholders.push(`<code>${code}</code>`);
+    return key;
+  });
+
+  html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  html = html.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+  html = html.replace(/_([^_]+)_/g, "<em>$1</em>");
+
+  placeholders.forEach((replacement, index) => {
+    html = html.replaceAll(`@@CODE${index}@@`, replacement);
+  });
+
+  return html;
+};
+
+const normalizeMarkdown = value =>
+  value
+    .replace(/^\uFEFF/, "")
+    .replace(/\r\n?/g, "\n")
+    .trim();
+
+const stripFirstHeading = value => value.replace(/^# .*(?:\n+|$)/, "").trim();
+
+const isDialogue = value => /^[—–-]\s+/.test(value);
+
+const isWhisper = value =>
+  /\b(murmur|voix basse|plus bas|souffla|chuchot|à voix basse)\b/i.test(value);
+
+const paragraphHtml = value => {
+  const classNames = [];
+  if (isDialogue(value)) {
+    classNames.push("dialogue");
+  }
+  if (isWhisper(value)) {
+    classNames.push("whisper");
+  }
+
+  const classAttribute = classNames.length ? ` class="${classNames.join(" ")}"` : "";
+  return `<p${classAttribute}>${inlineMarkdown(value)}</p>`;
+};
+
+const blockquoteHtml = block => {
+  const text = block
+    .split("\n")
+    .map(line => line.replace(/^>\s?/, "").trim())
+    .join("\n")
+    .trim();
+
+  if (!text.includes("\n") && text.length <= 160) {
+    return `<p class="thought">${inlineMarkdown(text)}</p>`;
+  }
+
+  const paragraphs = text
+    .split(/\n{2,}/)
+    .map(part => `<p>${inlineMarkdown(part.replace(/\n/g, " ").trim())}</p>`)
+    .join("\n");
+
+  return `<blockquote>\n${paragraphs}\n</blockquote>`;
+};
+
+const markdownToBlocks = markdown => {
+  const source = stripFirstHeading(normalizeMarkdown(markdown));
+  const blocks = [];
+  const lines = source.split("\n");
+  let current = [];
+  let blockquote = [];
+
+  const flushParagraph = () => {
+    if (!current.length) return;
+    blocks.push({ type: "paragraph", text: current.join(" ").trim() });
+    current = [];
+  };
+
+  const flushBlockquote = () => {
+    if (!blockquote.length) return;
+    blocks.push({ type: "blockquote", text: blockquote.join("\n") });
+    blockquote = [];
+  };
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+
+    if (!trimmed) {
+      flushParagraph();
+      flushBlockquote();
+      continue;
+    }
+
+    if (/^\*{3,}$/.test(trimmed)) {
+      flushParagraph();
+      flushBlockquote();
+      blocks.push({ type: "break" });
+      continue;
+    }
+
+    if (trimmed.startsWith(">")) {
+      flushParagraph();
+      blockquote.push(trimmed);
+      continue;
+    }
+
+    flushBlockquote();
+
+    if (isDialogue(trimmed)) {
+      flushParagraph();
+      blocks.push({ type: "paragraph", text: trimmed });
+      continue;
+    }
+
+    current.push(trimmed);
+  }
+
+  flushParagraph();
+  flushBlockquote();
+
+  while (blocks.at(-1)?.type === "break") {
+    blocks.pop();
+  }
+
+  return blocks;
+};
+
+const renderChapterBody = markdown => {
+  const blocks = markdownToBlocks(markdown);
+  const openingIndexes = blocks
+    .map((block, index) => ({ block, index }))
+    .filter(({ block }) => block.type === "paragraph" && !isDialogue(block.text))
+    .slice(0, 2)
+    .map(({ index }) => index);
+
+  return blocks
+    .map((block, index) => {
+      if (block.type === "break") {
+        return '    <div class="scene-break"></div>';
+      }
+
+      if (block.type === "blockquote") {
+        return blockquoteHtml(block.text)
+          .split("\n")
+          .map(line => `      ${line}`)
+          .join("\n");
+      }
+
+      const html = `      ${paragraphHtml(block.text)}`;
+      if (index === openingIndexes[0]) {
+        return `    <section class="opening">\n\n${html}`;
+      }
+      if (index === openingIndexes[1]) {
+        return `${html}\n\n    </section>`;
+      }
+      return html;
+    })
+    .join("\n\n");
+};
+
+const plainTextForStats = markdown =>
+  stripFirstHeading(normalizeMarkdown(markdown))
+    .replace(/^>\s?/gm, "")
+    .replace(/^\*{3,}$/gm, " ")
+    .replace(/[`*_#[\]()]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+const countWords = markdown =>
+  plainTextForStats(markdown).match(/[\p{L}\p{N}]+(?:[’'-][\p{L}\p{N}]+)*/gu)?.length ?? 0;
+
+const formatNumber = value => new Intl.NumberFormat("fr-FR").format(value).replace(/\s/g, " ");
+
+const readingTime = words => {
+  const minutes = Math.max(1, Math.round(words / wordsPerMinute));
+  if (minutes < 60) {
+    return `${minutes} min de lecture`;
+  }
+  const hours = Math.floor(minutes / 60);
+  const rest = minutes % 60;
+  return rest ? `${hours} h ${rest} de lecture` : `${hours} h de lecture`;
+};
+
+const renderReaderActions = () => `      <div class="reader-actions" aria-label="Réglages de lecture">
+        <label class="theme-control">
+          <span>Thème</span>
+          <select data-theme-select aria-label="Choisir le thème de lecture">
+            <option value="paper">Papier</option>
+            <option value="night">Nuit</option>
+            <option value="lycoris">Lycoris</option>
+            <option value="lion">Lion</option>
+          </select>
+        </label>
+        <button class="reader-button" type="button" data-font-decrease aria-label="Réduire la taille du texte" title="Réduire la taille du texte">A−</button>
+        <button class="reader-button" type="button" data-font-reset aria-label="Réinitialiser la taille du texte" title="Réinitialiser la taille du texte">A</button>
+        <button class="reader-button" type="button" data-font-increase aria-label="Augmenter la taille du texte" title="Augmenter la taille du texte">A+</button>
+      </div>`;
+
+const navItem = (chapter, kind) => {
+  if (!chapter) {
+    const label = kind === "prev" ? "Chapitre précédent" : "Chapitre suivant";
+    return `      <span class="${kind} disabled" aria-disabled="true">${label}</span>`;
+  }
+
+  const label = kind === "prev" ? `‹ ${chapter.title}` : `${chapter.title} ›`;
+  return `      <a class="${kind}" href="${chapter.output}">${escapeHtml(label)}</a>`;
+};
+
+const renderChapterPage = (chapter, previous, next, markdown) => {
+  const words = countWords(markdown);
+  const formattedWords = `${formatNumber(words)} mots`;
+  const time = readingTime(words);
+  const chapterNumber = chapter.number ? `Chapitre ${chapter.number}` : "Chapitre";
+  const pageTitle = chapter.number ? `${chapter.title} — Chapitre ${chapter.number}` : chapter.title;
+
+  return `<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${escapeHtml(pageTitle)}</title>
+  <link rel="stylesheet" href="../assets/styles.css" />
+  <script src="../assets/reader.js" defer></script>
+</head>
+
+<body class="chapter-page">
+  <div class="reading-progress" role="progressbar" aria-label="Progression de lecture" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-reading-progress>
+    <div class="reading-progress__bar" data-reading-progress-bar></div>
+  </div>
+
+  <a class="skip-link" href="#lecture">Aller au texte</a>
+
+  <header class="reader-header" aria-label="Navigation du chapitre">
+    <nav class="reader-bar">
+      <a class="reader-link" href="../index.html">Table des chapitres</a>
+${renderReaderActions()}
+    </nav>
+  </header>
+
+  <main class="page" id="lecture">
+    <div class="chapter-kicker">${escapeHtml(chapterNumber)}</div>
+    <h1>${escapeHtml(chapter.title)}</h1>
+    <div class="chapter-rule"></div>
+    <div class="chapter-subtitle">${escapeHtml(chapter.subtitle)}</div>
+    <div class="chapter-meta" aria-label="Longueur du chapitre">
+      <span>${formattedWords}</span>
+      <span>${time}</span>
+    </div>
+
+${renderChapterBody(markdown)}
+
+    <p class="final-stars">✦ ✦ ✦</p>
+
+    <nav class="chapter-nav" aria-label="Navigation entre les chapitres">
+${navItem(previous, "prev")}
+      <a class="current" href="../index.html">Table des chapitres</a>
+${navItem(next, "next")}
+    </nav>
+  </main>
+</body>
+</html>
+`;
+};
+
+const renderIndex = chapterStats => `<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Table des chapitres</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <script src="assets/reader.js" defer></script>
+</head>
+
+<body>
+  <a class="skip-link" href="#chapitres">Aller aux chapitres</a>
+
+  <header class="site-topline" aria-label="Réglages du site">
+    <div class="site-tools">
+      <a class="home-link" href="index.html" aria-current="page">Table</a>
+${renderReaderActions()}
+    </div>
+  </header>
+
+  <main class="home">
+    <header class="site-header">
+      <div class="kicker">Roman</div>
+      <h1>Table des chapitres</h1>
+      <div class="rule"></div>
+      <p class="subtitle">Version de lecture web</p>
+      <p class="home-intro">Une entrée simple vers les chapitres mis en page, pensée pour une lecture longue sur écran et prête à être servie par GitHub Pages.</p>
+    </header>
+
+    <section class="library" id="chapitres" aria-labelledby="chapitres-title">
+      <div class="library-head">
+        <h2 class="section-label" id="chapitres-title">Chapitres disponibles</h2>
+        <span class="library-count">${chapterStats.length} chapitres</span>
+      </div>
+
+      <ol class="chapter-list">
+${chapterStats
+  .map(
+    chapter => `        <li class="chapter-card">
+          <a class="chapter-link" href="chapitres/${chapter.output}">
+            <span class="chapter-number">Chapitre ${chapter.number}</span>
+            <span>
+              <span class="chapter-title">${escapeHtml(chapter.title)}</span>
+              <span class="chapter-place">${escapeHtml(chapter.subtitle)}</span>
+              <span class="chapter-stats" aria-label="Longueur et temps de lecture">
+                <span>${chapter.formattedWords}</span>
+                <span>${chapter.time}</span>
+              </span>
+              <span class="chapter-excerpt">${escapeHtml(chapter.excerpt)}</span>
+            </span>
+            <span class="chapter-arrow" aria-hidden="true">›</span>
+          </a>
+        </li>`
+  )
+  .join("\n")}
+      </ol>
+    </section>
+
+    <footer class="site-footer" aria-hidden="true">✦ ✦ ✦</footer>
+  </main>
+</body>
+</html>
+`;
+
+const getSelectedChapters = slug => {
+  if (!slug) return chapters;
+
+  const selected = chapters.filter(
+    chapter =>
+      chapter.output.replace(/\.html$/, "") === slug ||
+      String(chapter.number) === slug ||
+      chapter.title.toLowerCase() === slug.toLowerCase()
+  );
+
+  if (!selected.length) {
+    throw new Error(`Chapitre introuvable pour "${slug}".`);
+  }
+
+  return selected;
+};
+
+const writeIfChanged = async (file, content, checkOnly) => {
+  let current = null;
+  try {
+    current = await readFile(file, "utf8");
+  } catch {
+    current = null;
+  }
+
+  if (current === content) return false;
+  if (checkOnly) return true;
+
+  await mkdir(path.dirname(file), { recursive: true });
+  await writeFile(file, content, "utf8");
+  return true;
+};
+
+const buildConfiguredChapters = async ({ checkOnly, chapterSlug }) => {
+  const markdownByOutput = new Map();
+  const stats = [];
+
+  for (const chapter of chapters) {
+    const markdown = await readFile(path.join(repoRoot, chapter.source), "utf8");
+    markdownByOutput.set(chapter.output, markdown);
+    const words = countWords(markdown);
+    stats.push({
+      ...chapter,
+      words,
+      formattedWords: `${formatNumber(words)} mots`,
+      time: readingTime(words)
+    });
+  }
+
+  const selected = getSelectedChapters(chapterSlug);
+  const changed = [];
+
+  for (const chapter of selected) {
+    const index = chapters.indexOf(chapter);
+    const html = renderChapterPage(
+      chapter,
+      chapters[index - 1],
+      chapters[index + 1],
+      markdownByOutput.get(chapter.output)
+    );
+    const file = path.join(chaptersDir, chapter.output);
+    if (await writeIfChanged(file, html, checkOnly)) {
+      changed.push(path.relative(layoutRoot, file));
+    }
+  }
+
+  if (!chapterSlug) {
+    const indexHtml = renderIndex(stats);
+    const indexFile = path.join(layoutRoot, "index.html");
+    if (await writeIfChanged(indexFile, indexHtml, checkOnly)) {
+      changed.push("index.html");
+    }
+  }
+
+  return changed;
+};
+
+const buildSingleFile = async ({ source, title, subtitle, output, number, checkOnly }) => {
+  if (!source || !title || !output) {
+    throw new Error("Pour un fichier isolé, il faut fournir --source, --title et --output.");
+  }
+
+  const chapter = {
+    number: number ?? "",
+    title,
+    subtitle: subtitle ?? "",
+    output: path.basename(output),
+    excerpt: ""
+  };
+  const markdown = await readFile(path.resolve(repoRoot, source), "utf8");
+  const html = renderChapterPage(chapter, null, null, markdown);
+  const outputFile = path.resolve(layoutRoot, output);
+  const changed = await writeIfChanged(outputFile, html, checkOnly);
+  return changed ? [path.relative(layoutRoot, outputFile)] : [];
+};
+
+const parseArgs = argv => {
+  const args = {
+    checkOnly: false,
+    help: false,
+    chapterSlug: null,
+    source: null,
+    title: null,
+    subtitle: null,
+    output: null,
+    number: null
+  };
+
+  for (let index = 0; index < argv.length; index += 1) {
+    const arg = argv[index];
+    const next = () => argv[++index];
+
+    if (arg === "--check") args.checkOnly = true;
+    else if (arg === "--help" || arg === "-h") args.help = true;
+    else if (arg === "--chapter") args.chapterSlug = next();
+    else if (arg === "--source") args.source = next();
+    else if (arg === "--title") args.title = next();
+    else if (arg === "--subtitle") args.subtitle = next();
+    else if (arg === "--output") args.output = next();
+    else if (arg === "--number") args.number = next();
+    else throw new Error(`Option inconnue : ${arg}`);
+  }
+
+  return args;
+};
+
+const printHelp = () => {
+  console.log(`Usage:
+  node layout/scripts/build-layout.mjs
+  node layout/scripts/build-layout.mjs --chapter la-baronne-radieuse-de-vinterhavn
+  node layout/scripts/build-layout.mjs --check
+  node layout/scripts/build-layout.mjs --source chapitres/mon-chapitre.md --title "Mon chapitre" --subtitle "Lieu" --number 6 --output chapitres/mon-chapitre.html
+
+Options:
+  --chapter   Régénère un seul chapitre configuré, par numéro, slug ou titre exact.
+  --check     Vérifie si la génération modifierait des fichiers, sans écrire.
+  --source    Convertit un Markdown isolé au lieu des chapitres configurés.
+  --title     Titre de la page pour un Markdown isolé.
+  --subtitle  Sous-titre de la page pour un Markdown isolé.
+  --number    Numéro affiché pour un Markdown isolé.
+  --output    Sortie relative au dossier layout/.
+`);
+};
+
+const main = async () => {
+  const args = parseArgs(process.argv.slice(2));
+
+  if (args.help) {
+    printHelp();
+    return;
+  }
+
+  const changed = args.source ? await buildSingleFile(args) : await buildConfiguredChapters(args);
+
+  if (args.checkOnly && changed.length) {
+    console.error(`La génération modifierait : ${changed.join(", ")}`);
+    process.exitCode = 1;
+    return;
+  }
+
+  const verb = args.checkOnly ? "Aucun écart détecté" : "Génération terminée";
+  console.log(changed.length ? `${verb} : ${changed.join(", ")}` : `${verb} : aucun fichier modifié`);
+};
+
+main().catch(error => {
+  console.error(error.message);
+  process.exitCode = 1;
+});
