@@ -2,9 +2,9 @@
   const root = document.documentElement;
   const storageKeyTheme = "roman-reader-theme";
   const storageKeyScale = "roman-reader-scale";
-  const minScale = 0.9;
-  const maxScale = 1.22;
-  const step = 0.06;
+  const minScale = 0.78;
+  const maxScale = 1.26;
+  const step = 0.08;
 
   const read = (key, fallback) => {
     try {

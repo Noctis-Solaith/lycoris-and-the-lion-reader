@@ -448,8 +448,8 @@ html[data-theme="lion"] .page {
 
 .chapter-page p {
   margin: 0 0 1.25rem;
-  text-align: justify;
-  hyphens: auto;
+  text-align: left;
+  hyphens: none;
   hanging-punctuation: first;
   text-wrap: pretty;
 }
