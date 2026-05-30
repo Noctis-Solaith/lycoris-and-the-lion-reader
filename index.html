@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Table des chapitres</title>
-  <link rel="stylesheet" href="assets/styles.css" />
-  <script src="assets/reader.js" defer></script>
+  <link rel="stylesheet" href="assets/styles.css?v=165afee5" />
+  <script src="assets/reader.js?v=254586fc" defer></script>
 </head>
 
 <body>
@@ -13,20 +13,23 @@
 
   <header class="site-topline" aria-label="Réglages du site">
     <div class="site-tools">
-      <a class="home-link" href="index.html" aria-current="page">Table</a>
+      <a class="home-link is-current" href="index.html" aria-current="page">Table</a>
       <div class="reader-actions" aria-label="Réglages de lecture">
         <label class="theme-control">
           <span>Thème</span>
           <select data-theme-select aria-label="Choisir le thème de lecture">
             <option value="paper">Papier</option>
+            <option value="sepia">Sépia</option>
             <option value="night">Nuit</option>
             <option value="lycoris">Lycoris</option>
             <option value="lion">Lion</option>
           </select>
         </label>
-        <button class="reader-button" type="button" data-font-decrease aria-label="Réduire la taille du texte" title="Réduire la taille du texte">A−</button>
-        <button class="reader-button" type="button" data-font-reset aria-label="Réinitialiser la taille du texte" title="Réinitialiser la taille du texte">A</button>
-        <button class="reader-button" type="button" data-font-increase aria-label="Augmenter la taille du texte" title="Augmenter la taille du texte">A+</button>
+        <button class="reader-button" type="button" data-theme-toggle aria-pressed="false" aria-label="Basculer en thème nuit" title="Basculer en thème nuit">☾</button>
+        <button class="reader-button" type="button" data-width-toggle aria-label="Changer la largeur de colonne" title="Changer la largeur de colonne (W)">⇿</button>
+        <button class="reader-button" type="button" data-font-decrease aria-label="Réduire la taille du texte" title="Réduire la taille du texte (−)">A−</button>
+        <button class="reader-button" type="button" data-font-reset aria-label="Réinitialiser la taille du texte" title="Réinitialiser la taille du texte (0)">A</button>
+        <button class="reader-button" type="button" data-font-increase aria-label="Augmenter la taille du texte" title="Augmenter la taille du texte (+)">A+</button>
       </div>
     </div>
   </header>
@@ -43,7 +46,7 @@
     <section class="library" id="chapitres" aria-labelledby="chapitres-title">
       <div class="library-head">
         <h2 class="section-label" id="chapitres-title">Chapitres disponibles</h2>
-        <span class="library-count">7 chapitres</span>
+        <span class="library-count">11 chapitres</span>
       </div>
 
       <ol class="chapter-list">
@@ -129,7 +132,7 @@
               <span class="chapter-title">La Baronne radieuse de Vinterhavn</span>
               <span class="chapter-place">Djinn, Vinterhavn et les alliances que la presse croit découvrir</span>
               <span class="chapter-stats" aria-label="Longueur et temps de lecture">
-                <span>17 921 mots</span>
+                <span>17 942 mots</span>
                 <span>1 h 22 de lecture</span>
               </span>
               <span class="chapter-excerpt">Quand Le Diwan d'Héliopolis fait de Lycoris une hypothèse diplomatique, la plaisanterie mondaine se change en calcul politique.</span>
@@ -148,6 +151,66 @@
                 <span>29 min de lecture</span>
               </span>
               <span class="chapter-excerpt">À la caserne royale, la fatigue du général croise les plaisanteries des officiers, les images de presse et ce que l'armée préfère taire.</span>
+            </span>
+            <span class="chapter-arrow" aria-hidden="true">›</span>
+          </a>
+        </li>
+        <li class="chapter-card">
+          <a class="chapter-link" href="chapitres/le-prince-sous-la-pluie.html">
+            <span class="chapter-number">Chapitre 8</span>
+            <span>
+              <span class="chapter-title">Le prince sous la pluie</span>
+              <span class="chapter-place">Séricé, archives Villiers et pluie d'automne</span>
+              <span class="chapter-stats" aria-label="Longueur et temps de lecture">
+                <span>6 426 mots</span>
+                <span>29 min de lecture</span>
+              </span>
+              <span class="chapter-excerpt">Sous la pluie de Séricé, une caisse des fonds Villiers rouvre les pistes anciennes tandis que Lycoris apprend à mesurer ce que la maison conserve.</span>
+            </span>
+            <span class="chapter-arrow" aria-hidden="true">›</span>
+          </a>
+        </li>
+        <li class="chapter-card">
+          <a class="chapter-link" href="chapitres/le-roi-des-roses.html">
+            <span class="chapter-number">Chapitre 9</span>
+            <span>
+              <span class="chapter-title">Le Roi des Roses</span>
+              <span class="chapter-place">Pergame, la Maison des Verrières</span>
+              <span class="chapter-stats" aria-label="Longueur et temps de lecture">
+                <span>6 730 mots</span>
+                <span>31 min de lecture</span>
+              </span>
+              <span class="chapter-excerpt">Aux Ateliers, les archives et la prochaine collection rapprochent Lycoris du nom qu'elle cherchait derrière le lion et les roses.</span>
+            </span>
+            <span class="chapter-arrow" aria-hidden="true">›</span>
+          </a>
+        </li>
+        <li class="chapter-card">
+          <a class="chapter-link" href="chapitres/la-maison-apres-la-pluie.html">
+            <span class="chapter-number">Chapitre 10</span>
+            <span>
+              <span class="chapter-title">La maison après la pluie</span>
+              <span class="chapter-place">Séricé, le pavillon d'entraînement</span>
+              <span class="chapter-stats" aria-label="Longueur et temps de lecture">
+                <span>3 190 mots</span>
+                <span>15 min de lecture</span>
+              </span>
+              <span class="chapter-excerpt">Au pavillon de Séricé, Lycoris et Alstroemeria laissent les gestes, les lames et les vieilles habitudes dire ce que la journée a retenu.</span>
+            </span>
+            <span class="chapter-arrow" aria-hidden="true">›</span>
+          </a>
+        </li>
+        <li class="chapter-card">
+          <a class="chapter-link" href="chapitres/les-noms-qu-on-ne-dit-pas.html">
+            <span class="chapter-number">Chapitre 11</span>
+            <span>
+              <span class="chapter-title">Les noms qu'on ne dit pas</span>
+              <span class="chapter-place">Séricé, au dîner</span>
+              <span class="chapter-stats" aria-label="Longueur et temps de lecture">
+                <span>3 058 mots</span>
+                <span>14 min de lecture</span>
+              </span>
+              <span class="chapter-excerpt">Autour d'un dîner plus calme qu'à l'ordinaire, la famille Comnène approche les noms que chacun évite encore de prononcer.</span>
             </span>
             <span class="chapter-arrow" aria-hidden="true">›</span>
           </a>

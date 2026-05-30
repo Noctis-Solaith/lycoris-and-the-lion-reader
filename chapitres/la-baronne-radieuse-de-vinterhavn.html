@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>La Baronne radieuse de Vinterhavn — Chapitre 6</title>
-  <link rel="stylesheet" href="../assets/styles.css" />
-  <script src="../assets/reader.js" defer></script>
+  <link rel="stylesheet" href="../assets/styles.css?v=165afee5" />
+  <script src="../assets/reader.js?v=254586fc" defer></script>
 </head>
 
-<body class="chapter-page">
+<body class="chapter-page" data-chapter="la-baronne-radieuse-de-vinterhavn" data-reading-minutes="82">
   <div class="reading-progress" role="progressbar" aria-label="Progression de lecture" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-reading-progress>
     <div class="reading-progress__bar" data-reading-progress-bar></div>
   </div>
@@ -23,14 +23,17 @@
           <span>Thème</span>
           <select data-theme-select aria-label="Choisir le thème de lecture">
             <option value="paper">Papier</option>
+            <option value="sepia">Sépia</option>
             <option value="night">Nuit</option>
             <option value="lycoris">Lycoris</option>
             <option value="lion">Lion</option>
           </select>
         </label>
-        <button class="reader-button" type="button" data-font-decrease aria-label="Réduire la taille du texte" title="Réduire la taille du texte">A−</button>
-        <button class="reader-button" type="button" data-font-reset aria-label="Réinitialiser la taille du texte" title="Réinitialiser la taille du texte">A</button>
-        <button class="reader-button" type="button" data-font-increase aria-label="Augmenter la taille du texte" title="Augmenter la taille du texte">A+</button>
+        <button class="reader-button" type="button" data-theme-toggle aria-pressed="false" aria-label="Basculer en thème nuit" title="Basculer en thème nuit">☾</button>
+        <button class="reader-button" type="button" data-width-toggle aria-label="Changer la largeur de colonne" title="Changer la largeur de colonne (W)">⇿</button>
+        <button class="reader-button" type="button" data-font-decrease aria-label="Réduire la taille du texte" title="Réduire la taille du texte (−)">A−</button>
+        <button class="reader-button" type="button" data-font-reset aria-label="Réinitialiser la taille du texte" title="Réinitialiser la taille du texte (0)">A</button>
+        <button class="reader-button" type="button" data-font-increase aria-label="Augmenter la taille du texte" title="Augmenter la taille du texte (+)">A+</button>
       </div>
     </nav>
   </header>
@@ -41,7 +44,7 @@
     <div class="chapter-rule"></div>
     <div class="chapter-subtitle">Djinn, Vinterhavn et les alliances que la presse croit découvrir</div>
     <div class="chapter-meta" aria-label="Longueur du chapitre">
-      <span>17 921 mots</span>
+      <span>17 942 mots</span>
       <span>1 h 22 de lecture</span>
     </div>
 
@@ -105,29 +108,69 @@
 
       <p>Elle prit son téléphone et écrivit à Geb :</p>
 
-      <p class="thought">On vient de m'apprendre que je pourrais stabiliser tes eaux du nord par simple consentement matrimonial. Dois-je m'incliner devant mon utilité nouvelle ?</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">On vient de m'apprendre que je pourrais stabiliser tes eaux du nord par simple consentement matrimonial. Dois-je m'incliner devant mon utilité nouvelle ?</p>
+            </div>
+          </div>
 
       <p>La réponse arriva dix-sept minutes plus tard.</p>
 
-      <p class="thought">Je suis bouleversé. Jusqu'ici je pensais surtout à ton utilité en matière de cocktails, de sarcasmes et de robes capables de ruiner une ambassade.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Je suis bouleversé. Jusqu'ici je pensais surtout à ton utilité en matière de cocktails, de sarcasmes et de robes capables de ruiner une ambassade.</p>
+            </div>
+          </div>
 
       <p>Lycoris sourit.</p>
 
-      <p class="thought">Quelle étroitesse politique.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Quelle étroitesse politique.</p>
+            </div>
+          </div>
 
-      <p class="thought">Je fais ce que je peux avec une couronne, deux conseils, un père sinistrement sobre et une République qui manque de manières.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Je fais ce que je peux avec une couronne, deux conseils, un père sinistrement sobre et une République qui manque de manières.</p>
+            </div>
+          </div>
 
       <p>Le soulagement passa sous la plaisanterie, mince, presque honteux. Geb répondait vite. Geb plaisantait. Geb avait encore assez d'air pour transformer une crise en théâtre. Cela ne signifiait pas que tout allait bien. Cela signifiait que le pire, pour l'instant, avait desserré la main.</p>
 
       <p>Elle écrivit :</p>
 
-      <p class="thought">Dois-je démentir ?</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Dois-je démentir ?</p>
+            </div>
+          </div>
 
-      <p class="thought">Surtout pas. Je veux voir combien de ministres peuvent avaler leur café de travers au même moment.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Surtout pas. Je veux voir combien de ministres peuvent avaler leur café de travers au même moment.</p>
+            </div>
+          </div>
 
-      <p class="thought">Ton sens du service public m'émeut.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Ton sens du service public m'émeut.</p>
+            </div>
+          </div>
 
-      <p class="thought">Il paraît que c'est pour cela qu'on m'a choisi.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Il paraît que c'est pour cela qu'on m'a choisi.</p>
+            </div>
+          </div>
 
       <p>Lycoris fixa cette dernière phrase un peu plus longtemps.</p>
 
@@ -135,11 +178,26 @@
 
       <p>Elle répondit :</p>
 
-      <p class="thought">Je te laisse tes ministres. J'ai Vinterhavn.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Je te laisse tes ministres. J'ai Vinterhavn.</p>
+            </div>
+          </div>
 
-      <p class="thought">Mes condoléances au froid.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Mes condoléances au froid.</p>
+            </div>
+          </div>
 
-      <p class="thought">Il les mérite.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Il les mérite.</p>
+            </div>
+          </div>
 
       <p>Elle posa le téléphone.</p>
 
@@ -267,15 +325,21 @@
 
       <p>Elle écrivit à Calypso un message bref, dense, débarrassé de cette cordialité qui finit par devenir suspecte entre professionnelles.</p>
 
-      <blockquote>
-      <p>Confirmez-moi la position exacte des photographes de couloir et l'accès aux images mutualisées. Je veux savoir ce que Vanessa pourra recevoir, quand, et par qui.</p>
-      </blockquote>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Confirmez-moi la position exacte des photographes de couloir et l'accès aux images mutualisées. Je veux savoir ce que Vanessa pourra recevoir, quand, et par qui.</p>
+            </div>
+          </div>
 
       <p>La réponse vint vingt minutes plus tard, pendant qu'Alstroemeria examinait le panneau des prétendantes avec l'air d'une femme à qui l'on aurait donné un jardin à désherber.</p>
 
-      <blockquote>
-      <p>Baronne, Vanessa Crémonis n'aura pas d'accès direct aux loges. Elle recevra les images validées dans le lot commun, après horodatage. Les photographes de couloir seront placés selon le plan joint. Un appel public dans la zone C serait capté. Un appel en zone B ne le serait pas.</p>
-      </blockquote>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Calypso</span>
+              <p class="message-bubble message-bubble--received">Baronne, Vanessa Crémonis n'aura pas d'accès direct aux loges. Elle recevra les images validées dans le lot commun, après horodatage. Les photographes de couloir seront placés selon le plan joint. Un appel public dans la zone C serait capté. Un appel en zone B ne le serait pas.</p>
+            </div>
+          </div>
 
       <p>Lycoris lut le message, puis le tendit à Alstroemeria.</p>
 
@@ -323,13 +387,13 @@
 
       <p>Nerina, à côté d'elle, ralentit.</p>
 
-      <p class="dialogue">— On dirait le matin après le bal, murmura-t-elle.</p>
+      <p class="dialogue whisper">— On dirait le matin après le bal, murmura-t-elle.</p>
 
       <p>Lycoris suivit son regard. Des caisses démontées, des fleurs remplacées par des échantillons, des gens qui ne demandaient pas si la vie continuait puisqu'ils étaient en train de la porter.</p>
 
       <p class="dialogue">— C'est la même famille de matin, dit-elle. Moins de roses, plus de factures.</p>
 
-      <p>Varène traversa la cour vers elles, une tablette dans la main gauche, trois feuilles dans l'autre. Il avait le visage des hommes qui avaient dormi assez pour ne plus pouvoir s'en servir comme excuse.</p>
+      <p>Varène traversa la cour vers elles, une tablette dans la main gauche, trois bordereaux imprimés pour signature dans l'autre. Il avait le visage des hommes qui avaient dormi assez pour ne plus pouvoir s'en servir comme excuse.</p>
 
       <p class="dialogue">— Madame, Naucratis fonctionne de nouveau, mais sous surveillance. Les deux convois de soie ont été retardés de quarante heures. Les scellés ont été changés à l'entrepôt occidental. Rien ne manque.</p>
 
@@ -613,7 +677,7 @@
 
       <p>Les essayages commencèrent.</p>
 
-      <p>Cattleya gouverna l'après-midi avec la cruauté calme d'une femme qui croyait aux lignes plus qu'aux excuses. Elle fit marcher Juno jusqu'à la fenêtre, l'arrêta avant un pivot, reprit la manche au niveau du poignet, ordonna que l'on diminue un volume d'un demi-centimètre, puis déclara que la lumière de Vinterhavn haïrait ce satin s'il continuait à réfléchir comme un lac sentimental. Une assistante prit note sans frémir. Les grandes maisons forment le personnel à survivre aux métaphores techniques.</p>
+      <p>Cattleya gouverna l'après-midi avec la cruauté calme d'une femme qui croyait aux lignes plus qu'aux excuses. Elle fit marcher Juno jusqu'à la fenêtre, l'arrêta avant un pivot, reprit la manche au niveau du poignet, ordonna que l'on diminue un volume d'un demi-centimètre, puis déclara que la lumière de Vinterhavn haïrait ce satin s'il continuait à réfléchir comme un lac sentimental. Une assistante enregistra les corrections sur la tablette de l'atelier sans frémir. Les grandes maisons forment le personnel à survivre aux métaphores techniques.</p>
 
       <p>Lycoris passa d'un portant à l'autre. Elle ne dessinait pas. Elle ne prétendait pas créer ce que d'autres mains avaient fait naître. Elle lisait. Une robe de brocart vert noir voulait être portée comme une forêt fermée, pas comme une tentation. Un manteau court blanc cassé, doublé de rouge sombre, exigeait une marche rapide, presque militaire. Une robe longue d'un bleu métallique mourait sur le mannequin, puis reprit vie dès que Juno la traversa trop vite en riant.</p>
 
@@ -767,7 +831,7 @@
 
       <p>Lycoris travailla pendant la première heure.</p>
 
-      <p>Elle relut le protocole de Calypso, les listes d'invités, les demandes de la presse, les notes sur les mécènes de Vinterhavn, les derniers commentaires du <em>Diwan d'Héliopolis</em>. Le bureau l'avait suivie en miniature. Une valise entière contenait les coupures, les revues, les échantillons, les plans annotés, une chemise pour les prétendantes nationales, une autre pour les hypothèses étrangères. Cattleya avait appelé cette valise « la ménagerie ». Lycoris l'avait trouvée trop juste pour protester.</p>
+      <p>Elle relut sur sa tablette le protocole de Calypso, les listes d'invités, les demandes de la presse, les notes sur les mécènes de Vinterhavn, les derniers commentaires du <em>Diwan d'Héliopolis</em>. Le bureau l'avait suivie en miniature, moitié écran, moitié bagage. Une valise entière contenait les coupures, les revues, les échantillons, les plans annotés, une chemise pour les prétendantes nationales, une autre pour les hypothèses étrangères. Cattleya avait appelé cette valise « la ménagerie ». Lycoris l'avait trouvée trop juste pour protester.</p>
 
       <p>Juno entreprit d'apprendre aux serveurs du wagon-restaurant que le thé du Nord se comportait comme une punition. Nerina, d'abord assise très droite, finit par s'approcher de la fenêtre. Elle regardait les gares défiler avec une attention profonde, comme si chaque quai contenait une version possible de la vie qu'elle n'avait pas eue. Cattleya corrigeait des fiches de silhouettes en marge, avec la violence sèche d'une femme qui trouvait encore le moyen de reprocher à un papier son manque de tenue.</p>
 
@@ -961,31 +1025,66 @@
 
       <p>Geb avait écrit :</p>
 
-      <p class="thought">Vinterhavn t'a-t-elle accueillie ou seulement inspectée ?</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Vinterhavn t'a-t-elle accueillie ou seulement inspectée ?</p>
+            </div>
+          </div>
 
       <p>Elle répondit :</p>
 
-      <p class="thought">Inspectée. Je l'en remercie. L'accueil rend paresseux.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Inspectée. Je l'en remercie. L'accueil rend paresseux.</p>
+            </div>
+          </div>
 
-      <p class="thought">Je note que tu préfères les villes hostiles.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Je note que tu préfères les villes hostiles.</p>
+            </div>
+          </div>
 
-      <p class="thought">Je préfère les villes qui savent se tenir.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Je préfère les villes qui savent se tenir.</p>
+            </div>
+          </div>
 
-      <p class="thought">Dois-je m'inquiéter pour mes chances ?</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Dois-je m'inquiéter pour mes chances ?</p>
+            </div>
+          </div>
 
       <p>Elle regarda le port, les lampes, les vitres, le reflet de son visage dans la nuit.</p>
 
-      <p class="thought">Tu as encore quelques chances de devenir un port. Travaille tes quais.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Tu as encore quelques chances de devenir un port. Travaille tes quais.</p>
+            </div>
+          </div>
 
       <p>La réponse mit plus longtemps à venir.</p>
 
-      <p class="thought">Je demanderai conseil à mon ministère des Infrastructures.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Je demanderai conseil à mon ministère des Infrastructures.</p>
+            </div>
+          </div>
 
       <p>Lycoris rit. Cattleya ne demanda pas qui la faisait rire. C'était une forme d'amitié supérieure.</p>
 
       <p>Le lendemain, avant l'aube, elle était réveillée.</p>
 
-      <p>Vinterhavn dormait mal. Même la nuit, la ville cliquetait, chargeait, hissait, vérifiait. Le port avait ses heures à lui, indifférentes à la fatigue des salons. Lycoris ouvrit son carnet et ajouta trois lignes au dossier :</p>
+      <p>Vinterhavn dormait mal. Même la nuit, la ville cliquetait, chargeait, hissait, vérifiait. Le port avait ses heures à lui, indifférentes à la fatigue des salons. Lycoris ouvrit sur son téléphone la note consacrée à Vinterhavn et y ajouta trois lignes :</p>
 
       <p><strong>Nerina : silence actif.</strong></p>
 
@@ -1399,7 +1498,7 @@
 
       <p>Au bout de la passerelle, Nerina ne sourit pas. Elle leva le menton au retour, comme elle l'avait décidé dans le train.</p>
 
-      <p>Cattleya murmura :</p>
+      <p class="whisper">Cattleya murmura :</p>
 
       <p class="dialogue">— Bien.</p>
 
@@ -1685,23 +1784,53 @@
 
       <p>Cassian écrivit à son tour.</p>
 
-      <p class="thought">Votre photographe a du talent ou vous avez de la chance.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Cassian</span>
+              <p class="message-bubble message-bubble--received">Votre photographe a du talent ou vous avez de la chance.</p>
+            </div>
+          </div>
 
       <p>Elle répondit :</p>
 
-      <p class="thought">Je choisis les deux quand le budget le permet.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Je choisis les deux quand le budget le permet.</p>
+            </div>
+          </div>
 
-      <p class="thought">Vanessa va jouir en prose.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Cassian</span>
+              <p class="message-bubble message-bubble--received">Vanessa va jouir en prose.</p>
+            </div>
+          </div>
 
-      <p class="thought">Vous surestimez sa sensualité.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Vous surestimez sa sensualité.</p>
+            </div>
+          </div>
 
-      <p class="thought">Je sous-estime rarement les femmes capables de nuire avec grâce.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Cassian</span>
+              <p class="message-bubble message-bubble--received">Je sous-estime rarement les femmes capables de nuire avec grâce.</p>
+            </div>
+          </div>
 
       <p>Lycoris resta un instant devant le message. Elle se souvenait de son souffle à l'oreille, du juron échappé, du regard devenu tout à coup moins civilisé. Cassian savait salir ce qu'il désirait, puis nommer la salissure lucidité. C'était une compétence utile chez un allié, plus fatigante chez un amant.</p>
 
       <p>Elle effaça une réponse trop vive et écrivit seulement :</p>
 
-      <p class="thought">Alors lisez-la demain. Vous apprendrez peut-être quelque chose.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Alors lisez-la demain. Vous apprendrez peut-être quelque chose.</p>
+            </div>
+          </div>
 
       <p>Il ne répondit pas tout de suite. Elle imagina son sourire contrarié, et cela suffit à égayer l'espace d'une minute.</p>
 
@@ -1789,7 +1918,7 @@
 
       <p class="dialogue">— Tu n'étais pas mal non plus, avec ta distance strictement professionnelle.</p>
 
-      <p>Calypso jura tout bas.</p>
+      <p class="whisper">Calypso jura tout bas.</p>
 
       <p class="dialogue">— Putain. Je te déteste.</p>
 
@@ -1801,7 +1930,7 @@
 
       <p>La tablette glissa sur la coiffeuse et s'arrêta contre un peigne. Quelque part dans le couloir, une voix appela un prénom qui n'était pas le leur. Calypso ne recula pas. Sa main descendit au bas du dos de Lycoris, l'attira contre elle avec cette autorité brève des femmes qui ont trop longtemps refusé de prendre. Lycoris sentit la courroie de l'appareil contre sa poitrine, le métal froid d'une boucle à travers la chemise, l'odeur de pluie dans les cheveux courts. Cela ne ressemblait pas à Cassian. Il n'y avait ni épouse, ni enfants, ni morale utile à convoquer. Une faute plus simple, donc moins facile à détester.</p>
 
-      <p class="dialogue">— Tu cadres avant de toucher, murmura Lycoris contre sa bouche.</p>
+      <p class="dialogue whisper">— Tu cadres avant de toucher, murmura Lycoris contre sa bouche.</p>
 
       <p class="dialogue">— Et toi, tu provoques avant de fuir.</p>
 
@@ -1913,25 +2042,65 @@
 
       <p>Cassian, bien sûr.</p>
 
-      <p class="thought">Ministre d'une lumière calculée. Vanessa vous flatte mieux que moi. Je suis humilié.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Cassian</span>
+              <p class="message-bubble message-bubble--received">Ministre d'une lumière calculée. Vanessa vous flatte mieux que moi. Je suis humilié.</p>
+            </div>
+          </div>
 
       <p>Lycoris répondit :</p>
 
-      <p class="thought">Vous survivrez. Votre humiliation a de bonnes épaules.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Vous survivrez. Votre humiliation a de bonnes épaules.</p>
+            </div>
+          </div>
 
-      <p class="thought">Elle préférerait vos mains.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Cassian</span>
+              <p class="message-bubble message-bubble--received">Elle préférerait vos mains.</p>
+            </div>
+          </div>
 
-      <p class="thought">Votre épouse garde-t-elle toujours vos lectures hors du lit ?</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Votre épouse garde-t-elle toujours vos lectures hors du lit ?</p>
+            </div>
+          </div>
 
-      <p class="thought">Elle vient de m'envoyer l'article avec la mention : &quot;Regarde comme on écrit quand on ne perd pas son temps.&quot;</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Cassian</span>
+              <p class="message-bubble message-bubble--received">Elle vient de m'envoyer l'article avec la mention : &quot;Regarde comme on écrit quand on ne perd pas son temps.&quot;</p>
+            </div>
+          </div>
 
       <p>Lycoris dut contenir un rire. Cassian, trompé dans son propre théâtre par l'esprit de sa femme, méritait presque une minute de compassion. Presque.</p>
 
-      <p class="thought">Elle est donc meilleure critique que vous.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Elle est donc meilleure critique que vous.</p>
+            </div>
+          </div>
 
-      <p class="thought">Je l'ai épousée pour cela, entre autres erreurs utiles.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Cassian</span>
+              <p class="message-bubble message-bubble--received">Je l'ai épousée pour cela, entre autres erreurs utiles.</p>
+            </div>
+          </div>
 
-      <p class="thought">Gardez-la. Les femmes qui vous corrigent rendent service à la sécurité publique.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Gardez-la. Les femmes qui vous corrigent rendent service à la sécurité publique.</p>
+            </div>
+          </div>
 
       <p>La réponse tarda. Elle imagina Cassian dans un salon du matin, chemise ouverte, cheveux encore marqués par une nuit qu'il prétendrait courte, lisant Vanessa et affectant de ne pas chercher, entre les lignes, la place exacte qu'il y occupait. Il n'y en avait aucune. C'était cela, peut-être, qui l'irriterait le plus. Les hommes habitués à troubler les femmes supportent mal de devenir un élément hors cadre.</p>
 
@@ -2161,27 +2330,62 @@
 
       <p>Lycoris lut le message.</p>
 
-      <p class="thought">Vanessa m'apprend que je suis un prince au bout du fil. Dois-je demander une promotion ou un ciseau ?</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Vanessa m'apprend que je suis un prince au bout du fil. Dois-je demander une promotion ou un ciseau ?</p>
+            </div>
+          </div>
 
       <p>Elle sourit, sans que personne eût la délicatesse de ne pas le remarquer.</p>
 
-      <p class="thought">Demande un bon opérateur. Les fils mal tenus étranglent les dynasties.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Demande un bon opérateur. Les fils mal tenus étranglent les dynasties.</p>
+            </div>
+          </div>
 
-      <p class="thought">Je savais que vous trouveriez le détail technique.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Je savais que vous trouveriez le détail technique.</p>
+            </div>
+          </div>
 
-      <p class="thought">C'est la seule raison de survivre aux métaphores.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">C'est la seule raison de survivre aux métaphores.</p>
+            </div>
+          </div>
 
-      <p class="thought">La photographie est belle.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">La photographie est belle.</p>
+            </div>
+          </div>
 
       <p>Elle cessa de taper. Le train traversa un pont. Sous eux, un fleuve brun roulait vers le Nord, indifférent aux chroniques, aux robes, aux princes invisibles. La phrase de Geb était simple. Il avait retiré les pirouettes, les conseillers, les plaisanteries de protection. Elle méritait qu'on ne la transformât pas aussitôt en objet brillant.</p>
 
-      <p class="thought">Elle est efficace.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Elle est efficace.</p>
+            </div>
+          </div>
 
       <p>La réponse vint :</p>
 
-      <p class="thought">Ce n'est pas ce que j'ai dit.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Ce n'est pas ce que j'ai dit.</p>
+            </div>
+          </div>
 
-      <p>Cattleya, qui avait l'exaspérante capacité de lire un visage sans voir l'écran, murmura :</p>
+      <p class="whisper">Cattleya, qui avait l'exaspérante capacité de lire un visage sans voir l'écran, murmura :</p>
 
       <p class="dialogue">— Il a marqué un point.</p>
 
@@ -2193,17 +2397,42 @@
 
       <p>Geb écrivit encore :</p>
 
-      <p class="thought">Je te dois peut-être des excuses. Mon nom te suit avec moins de discrétion que je ne le voudrais.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Je te dois peut-être des excuses. Mon nom te suit avec moins de discrétion que je ne le voudrais.</p>
+            </div>
+          </div>
 
       <p>Lycoris répondit plus vite.</p>
 
-      <p class="thought">Ton nom ne me suit pas. Les gens le portent derrière moi pour se donner de l'importance. Ce n'est pas pareil.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Ton nom ne me suit pas. Les gens le portent derrière moi pour se donner de l'importance. Ce n'est pas pareil.</p>
+            </div>
+          </div>
 
-      <p class="thought">Tu manies la distinction comme une épingle.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Tu manies la distinction comme une épingle.</p>
+            </div>
+          </div>
 
-      <p class="thought">Demande à Cattleya. Les épingles évitent des drames.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Demande à Cattleya. Les épingles évitent des drames.</p>
+            </div>
+          </div>
 
-      <p class="thought">Remercie-la donc de ma part, même si j'ignore pourquoi.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Remercie-la donc de ma part, même si j'ignore pourquoi.</p>
+            </div>
+          </div>
 
       <p>Lycoris leva les yeux vers Cattleya.</p>
 
@@ -2217,15 +2446,35 @@
 
       <p>Lycoris transmit :</p>
 
-      <p class="thought">Elle accepte ton ignorance comme une base saine.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Elle accepte ton ignorance comme une base saine.</p>
+            </div>
+          </div>
 
-      <p class="thought">Je bâtirai dessus.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Je bâtirai dessus.</p>
+            </div>
+          </div>
 
       <p>Le dialogue aurait pu continuer. Elle y mit fin d'elle-même. La froideur n'y était pour rien : certaines conversations perdent leur grâce lorsqu'on les garde ouvertes par gourmandise.</p>
 
-      <p class="thought">Travaille. Vanessa n'a pas besoin que tu l'aides.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Travaille. Vanessa n'a pas besoin que tu l'aides.</p>
+            </div>
+          </div>
 
-      <p class="thought">Je travaille. C'est ma façon la plus crédible de t'obéir.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Geb</span>
+              <p class="message-bubble message-bubble--received">Je travaille. C'est ma façon la plus crédible de t'obéir.</p>
+            </div>
+          </div>
 
       <p>Elle posa le téléphone.</p>
 

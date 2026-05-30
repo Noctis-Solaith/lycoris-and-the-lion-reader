@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mesures et distances — Chapitre 4</title>
-  <link rel="stylesheet" href="../assets/styles.css" />
-  <script src="../assets/reader.js" defer></script>
+  <link rel="stylesheet" href="../assets/styles.css?v=165afee5" />
+  <script src="../assets/reader.js?v=254586fc" defer></script>
 </head>
 
-<body class="chapter-page">
+<body class="chapter-page" data-chapter="mesures-et-distances" data-reading-minutes="57">
   <div class="reading-progress" role="progressbar" aria-label="Progression de lecture" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-reading-progress>
     <div class="reading-progress__bar" data-reading-progress-bar></div>
   </div>
@@ -23,14 +23,17 @@
           <span>Thème</span>
           <select data-theme-select aria-label="Choisir le thème de lecture">
             <option value="paper">Papier</option>
+            <option value="sepia">Sépia</option>
             <option value="night">Nuit</option>
             <option value="lycoris">Lycoris</option>
             <option value="lion">Lion</option>
           </select>
         </label>
-        <button class="reader-button" type="button" data-font-decrease aria-label="Réduire la taille du texte" title="Réduire la taille du texte">A−</button>
-        <button class="reader-button" type="button" data-font-reset aria-label="Réinitialiser la taille du texte" title="Réinitialiser la taille du texte">A</button>
-        <button class="reader-button" type="button" data-font-increase aria-label="Augmenter la taille du texte" title="Augmenter la taille du texte">A+</button>
+        <button class="reader-button" type="button" data-theme-toggle aria-pressed="false" aria-label="Basculer en thème nuit" title="Basculer en thème nuit">☾</button>
+        <button class="reader-button" type="button" data-width-toggle aria-label="Changer la largeur de colonne" title="Changer la largeur de colonne (W)">⇿</button>
+        <button class="reader-button" type="button" data-font-decrease aria-label="Réduire la taille du texte" title="Réduire la taille du texte (−)">A−</button>
+        <button class="reader-button" type="button" data-font-reset aria-label="Réinitialiser la taille du texte" title="Réinitialiser la taille du texte (0)">A</button>
+        <button class="reader-button" type="button" data-font-increase aria-label="Augmenter la taille du texte" title="Augmenter la taille du texte (+)">A+</button>
       </div>
     </nav>
   </header>
@@ -537,7 +540,7 @@
 
       <p>Le bandage tirait sous la veste. Il avait fait reboutonner l'uniforme jusqu'au col. Le sang avait disparu. Le tissu empêchait surtout les regards de choisir la blessure comme centre de la pièce. Dans le couloir nord, un miroir poli lui renvoya une silhouette acceptable : visage trop pâle, poussière effacée, cheveux remis, main gauche immobile sans raideur excessive. Il corrigea seulement l'angle du revers.</p>
 
-      <p class="whisper">À deux mètres de lui, le chef de cabinet du ministère de la Guerre parlait à voix basse avec un secrétaire royal. Les mots isolés passèrent dans l'air : <em>convoi</em>, <em>eaux nord</em>, <em>ambassadeur</em>, <em>héritier</em>, <em>familles</em>.</p>
+      <p>À deux mètres de lui, le chef de cabinet du ministère de la Guerre parlait à voix basse avec un secrétaire royal. Les mots isolés passèrent dans l'air : <em>convoi</em>, <em>eaux nord</em>, <em>ambassadeur</em>, <em>héritier</em>, <em>familles</em>.</p>
 
       <p>Geb était donc là.</p>
 
@@ -1459,7 +1462,12 @@
 
       <p>Il envoya à Astarté une photographie du pansement. La réponse arriva moins d'une minute plus tard :</p>
 
-      <p class="thought">Floue. Volontairement. Je t'en veux avec précision.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Astarté</span>
+              <p class="message-bubble message-bubble--received">Floue. Volontairement. Je t'en veux avec précision.</p>
+            </div>
+          </div>
 
       <p>Il posa le téléphone face contre la table.</p>
 
@@ -1503,7 +1511,12 @@
 
       <p>Elle répondit seulement :</p>
 
-      <p class="thought">Mieux.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Astarté</span>
+              <p class="message-bubble message-bubble--received">Mieux.</p>
+            </div>
+          </div>
 
       <p>Le mot resta sur l'écran avec une petite sévérité lumineuse.</p>
 

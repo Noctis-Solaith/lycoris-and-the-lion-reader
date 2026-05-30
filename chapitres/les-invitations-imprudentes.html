@@ -4,11 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Les invitations imprudentes — Chapitre 5</title>
-  <link rel="stylesheet" href="../assets/styles.css" />
-  <script src="../assets/reader.js" defer></script>
+  <link rel="stylesheet" href="../assets/styles.css?v=165afee5" />
+  <script src="../assets/reader.js?v=254586fc" defer></script>
 </head>
 
-<body class="chapter-page">
+<body class="chapter-page" data-chapter="les-invitations-imprudentes" data-reading-minutes="34">
   <div class="reading-progress" role="progressbar" aria-label="Progression de lecture" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-reading-progress>
     <div class="reading-progress__bar" data-reading-progress-bar></div>
   </div>
@@ -23,14 +23,17 @@
           <span>Thème</span>
           <select data-theme-select aria-label="Choisir le thème de lecture">
             <option value="paper">Papier</option>
+            <option value="sepia">Sépia</option>
             <option value="night">Nuit</option>
             <option value="lycoris">Lycoris</option>
             <option value="lion">Lion</option>
           </select>
         </label>
-        <button class="reader-button" type="button" data-font-decrease aria-label="Réduire la taille du texte" title="Réduire la taille du texte">A−</button>
-        <button class="reader-button" type="button" data-font-reset aria-label="Réinitialiser la taille du texte" title="Réinitialiser la taille du texte">A</button>
-        <button class="reader-button" type="button" data-font-increase aria-label="Augmenter la taille du texte" title="Augmenter la taille du texte">A+</button>
+        <button class="reader-button" type="button" data-theme-toggle aria-pressed="false" aria-label="Basculer en thème nuit" title="Basculer en thème nuit">☾</button>
+        <button class="reader-button" type="button" data-width-toggle aria-label="Changer la largeur de colonne" title="Changer la largeur de colonne (W)">⇿</button>
+        <button class="reader-button" type="button" data-font-decrease aria-label="Réduire la taille du texte" title="Réduire la taille du texte (−)">A−</button>
+        <button class="reader-button" type="button" data-font-reset aria-label="Réinitialiser la taille du texte" title="Réinitialiser la taille du texte (0)">A</button>
+        <button class="reader-button" type="button" data-font-increase aria-label="Augmenter la taille du texte" title="Augmenter la taille du texte (+)">A+</button>
       </div>
     </nav>
   </header>
@@ -385,7 +388,7 @@
 
       <p>Il se reprit aussitôt, mais trop tard. Ses yeux gris avaient changé. La correction y demeurait, par habitude, par intelligence, par cruauté envers les jeunes hommes qui n'en avaient pas. Sous elle, une lueur plus basse s'était allumée, directe, presque animale. Lycoris sentit ce regard glisser, puis revenir à son visage comme on revient à une table après avoir imaginé tout ce qu'on pourrait y renverser.</p>
 
-      <p class="dialogue">— Vous devriez faire attention, murmura-t-il.</p>
+      <p class="dialogue whisper">— Vous devriez faire attention, murmura-t-il.</p>
 
       <p class="dialogue">— À vous ?</p>
 
@@ -695,53 +698,108 @@
 
       <p>Il inclina la tête, téléphone à l'oreille, et la laissa partir.</p>
 
-      <p class="whisper">Dix minutes plus tard, dans le taxi qui la conduisit à l'aéroport, la capitale avait perdu l'or de la veille. Elle était blanche, affairée, traversée de rails, de feux matinaux, de façades dont les fenêtres réfléchissaient un ciel sans décision. Lycoris regarda ses messages sans les ouvrir tout de suite. Le chauffeur parlait à voix basse avec un système de guidage. Les voies rapides glissaient sous eux. Elle pensa à dormir et détesta aussitôt l'idée.</p>
+      <p>Dix minutes plus tard, dans le taxi qui la conduisit à l'aéroport, la capitale avait perdu l'or de la veille. Elle était blanche, affairée, traversée de rails, de feux matinaux, de façades dont les fenêtres réfléchissaient un ciel sans décision. Lycoris regarda ses messages sans les ouvrir tout de suite. Le chauffeur parlait à voix basse avec un système de guidage. Les voies rapides glissaient sous eux. Elle pensa à dormir et détesta aussitôt l'idée.</p>
 
       <p>À bord, avant le décollage, elle reçut le premier message de Cassian.</p>
 
-      <p class="thought">Vous êtes partie comme une femme qui prétend ne pas fuir.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Cassian</span>
+              <p class="message-bubble message-bubble--received">Vous êtes partie comme une femme qui prétend ne pas fuir.</p>
+            </div>
+          </div>
 
       <p>Elle attacha sa ceinture.</p>
 
-      <p class="thought">Je ne fuis pas. Je travaille.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Je ne fuis pas. Je travaille.</p>
+            </div>
+          </div>
 
       <p>La réponse vint presque aussitôt.</p>
 
-      <p class="thought">C'est souvent votre manière la plus convaincante de mentir.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Cassian</span>
+              <p class="message-bubble message-bubble--received">C'est souvent votre manière la plus convaincante de mentir.</p>
+            </div>
+          </div>
 
       <p>Elle regarda par le hublot. Les équipes au sol déplaçaient les chariots avec une précision de ballet sans musique. Un homme en veste fluorescente leva deux doigts vers le cockpit. La carlingue vibra sous elle, encore immobile, déjà promise au départ.</p>
 
-      <p class="thought">Je ne suis pas fâchée.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Je ne suis pas fâchée.</p>
+            </div>
+          </div>
 
       <p>Cassian mit plus longtemps à répondre.</p>
 
-      <p class="thought">Voilà une phrase qui mériterait un témoin moins crédule que moi.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Cassian</span>
+              <p class="message-bubble message-bubble--received">Voilà une phrase qui mériterait un témoin moins crédule que moi.</p>
+            </div>
+          </div>
 
       <p>Lycoris sentit sa bouche bouger malgré elle. Il avait tort de lui plaire encore lorsqu'elle était contrariée. C'était une de ses nuisances les plus constantes.</p>
 
-      <p class="thought">Je suis fatiguée, Cassian. Et j'avais encore du travail.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Je suis fatiguée, Cassian. Et j'avais encore du travail.</p>
+            </div>
+          </div>
 
-      <p class="thought">Je vous ai réveillée.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Cassian</span>
+              <p class="message-bubble message-bubble--received">Je vous ai réveillée.</p>
+            </div>
+          </div>
 
       <p>Elle ne répondit pas.</p>
 
-      <p class="thought">Je suis désolé.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Cassian</span>
+              <p class="message-bubble message-bubble--received">Je suis désolé.</p>
+            </div>
+          </div>
 
       <p>Le message resta sur l'écran, petit, propre, insuffisant, donc probablement sincère.</p>
 
       <p>Lycoris posa le téléphone contre sa cuisse, puis le reprit.</p>
 
-      <p class="thought">Rentrez voir vos enfants. Ils grandissent plus vite que les adultes ne réparent leurs agendas.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">Rentrez voir vos enfants. Ils grandissent plus vite que les adultes ne réparent leurs agendas.</p>
+            </div>
+          </div>
 
       <p>Elle crut en avoir terminé. Puis, parce que la fatigue déplace parfois les serrures avant qu'on puisse les retenir, elle ajouta :</p>
 
-      <p class="thought">C'est une phrase de fille qui aurait aimé avoir encore du temps avec son père. Prenez-la comme vous voudrez.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--sent">
+              <span class="message-author">Lycoris</span>
+              <p class="message-bubble message-bubble--sent">C'est une phrase de fille qui aurait aimé avoir encore du temps avec son père. Prenez-la comme vous voudrez.</p>
+            </div>
+          </div>
 
       <p>Il ne répondit pas avant que l'avion commence à rouler.</p>
 
       <p>La piste s'allongea derrière la vitre. La capitale glissa, diminua, perdit ses angles. Au moment où les roues quittèrent le sol, le téléphone vibra encore.</p>
 
-      <p class="thought">Je la prends sérieusement.</p>
+          <div class="messages" role="group" aria-label="Conversation par messagerie">
+            <div class="message message--received">
+              <span class="message-author">Cassian</span>
+              <p class="message-bubble message-bubble--received">Je la prends sérieusement.</p>
+            </div>
+          </div>
 
       <p>Lycoris éteignit l'écran.</p>
 

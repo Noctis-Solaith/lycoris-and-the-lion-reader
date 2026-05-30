@@ -1,4 +1,6 @@
 import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { watch } from "node:fs";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -6,73 +8,18 @@ const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const layoutRoot = path.resolve(scriptDir, "..");
 const repoRoot = path.resolve(layoutRoot, "..");
 const chaptersDir = path.join(layoutRoot, "chapitres");
+const chaptersConfig = path.join(layoutRoot, "chapters.json");
 const wordsPerMinute = 219;
 
-const chapters = [
-  {
-    number: 1,
-    title: "Le Bal des Trois Lunes",
-    subtitle: "Séricé, sous la coupole des constellations",
-    source: "chapitres/1_Bal_des_Trois_Lunes/v9.md",
-    output: "bal-des-trois-lunes.html",
-    excerpt:
-      "Lycoris Comnène domine sa propre fête tandis que la nuit, les alliances et les présences plus discrètes se mettent en mouvement."
-  },
-  {
-    number: 2,
-    title: "Le Lendemain des Trois Lunes",
-    subtitle: "Séricé, au matin d’après",
-    source: "chapitres/2_Un_Matin_pour_Deux_Frontieres/v10.md",
-    output: "lendemain-des-trois-lunes.html",
-    excerpt:
-      "Geb Ramses trouve le secret dans un couloir, avant le café, au matin d’une maison encore traversée par la fête."
-  },
-  {
-    number: 3,
-    title: "Les papiers en attente",
-    subtitle: "La Distance des Roses",
-    source: "chapitres/2.1_La_Distance_des_Roses/chapitre_01_sortir_du_bal_vF.md",
-    output: "les-papiers-en-attente.html",
-    excerpt:
-      "Le troisième matin après le Bal des Trois Lunes, Séricé a enfin cessé de briller, mais les traces de la nuit demandent encore leur dû."
-  },
-  {
-    number: 4,
-    title: "Mesures et distances",
-    subtitle: "Frontière de Tyr, royaume de Djinn",
-    source: "chapitres/2.2_Mesures_et_distances/v5.md",
-    output: "mesures-et-distances.html",
-    excerpt:
-      "À la frontière de Tyr, la République mesure les lignes de Djinn tandis que Sirius pèse chaque réponse avant qu’elle ne devienne politique."
-  },
-  {
-    number: 5,
-    title: "Les invitations imprudentes",
-    subtitle: "Pergame, Vinterhavn et autres mensonges utiles",
-    source: "chapitres/2.3_Les_invitations_imprudentes/chapitre_03_v2.md",
-    output: "les-invitations-imprudentes.html",
-    excerpt:
-      "Dans un bureau déjà envahi par les preuves, Lycoris voit les invitations, les bijoux et les rumeurs transformer Vinterhavn en terrain dangereux."
-  },
-  {
-    number: 6,
-    title: "La Baronne radieuse de Vinterhavn",
-    subtitle: "Djinn, Vinterhavn et les alliances que la presse croit découvrir",
-    source: "chapitres/2.4_La_Baronne_Radieuse_de_Vinterhavn/chapitre_04_v2.md",
-    output: "la-baronne-radieuse-de-vinterhavn.html",
-    excerpt:
-      "Quand Le Diwan d'Héliopolis fait de Lycoris une hypothèse diplomatique, la plaisanterie mondaine se change en calcul politique."
-  },
-  {
-    number: 7,
-    title: "Pour le bien de l'armée",
-    subtitle: "Héliopolis, caserne royale",
-    source: "chapitres/2.4bis_Pour_le_bien_de_l_armee/chapitre_04bis_v1.md",
-    output: "pour-le-bien-de-l-armee.html",
-    excerpt:
-      "À la caserne royale, la fatigue du général croise les plaisanteries des officiers, les images de presse et ce que l'armée préfère taire."
-  }
-];
+const loadChapters = async () => {
+  const raw = await readFile(chaptersConfig, "utf8");
+  return JSON.parse(raw);
+};
+
+const fingerprint = async file => {
+  const content = await readFile(file);
+  return createHash("sha1").update(content).digest("hex").slice(0, 8);
+};
 
 const escapeHtml = value =>
   value
@@ -91,12 +38,22 @@ const inlineMarkdown = value => {
     return key;
   });
 
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, url) => {
+    const key = `@@LINK${placeholders.length}@@`;
+    const safeUrl = url.trim();
+    const external = /^https?:/i.test(safeUrl);
+    const attrs = external ? ' rel="noopener noreferrer" target="_blank"' : "";
+    placeholders.push(`<a href="${safeUrl}"${attrs}>${text}</a>`);
+    return key;
+  });
+
   html = html.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   html = html.replace(/\*([^*]+)\*/g, "<em>$1</em>");
   html = html.replace(/_([^_]+)_/g, "<em>$1</em>");
 
   placeholders.forEach((replacement, index) => {
     html = html.replaceAll(`@@CODE${index}@@`, replacement);
+    html = html.replaceAll(`@@LINK${index}@@`, replacement);
   });
 
   return html;
@@ -110,10 +67,12 @@ const normalizeMarkdown = value =>
 
 const stripFirstHeading = value => value.replace(/^# .*(?:\n+|$)/, "").trim();
 
-const isDialogue = value => /^[—–-]\s+/.test(value);
+const isDialogue = value => /^[—–]\s+/.test(value);
 
 const isWhisper = value =>
-  /\b(murmur|voix basse|plus bas|souffla|chuchot|à voix basse)\b/i.test(value);
+  /\b(murmura(?:i[ts]?|nt|ient)?|chuchota(?:i[ts]?|nt|ient)?|souffla(?:i[ts]?|nt|ient)?|à voix basse|à mi-voix|plus bas|tout bas)\b/i.test(
+    value
+  );
 
 const paragraphHtml = value => {
   const classNames = [];
@@ -128,23 +87,51 @@ const paragraphHtml = value => {
   return `<p${classAttribute}>${inlineMarkdown(value)}</p>`;
 };
 
-const blockquoteHtml = block => {
-  const text = block
+const parseMessageParagraph = value => {
+  const marker = value.match(/^\s*\[([←→])\s+([^\]]+?)\]\s*/);
+  return {
+    direction: marker ? (marker[1] === "→" ? "sent" : "received") : null,
+    author: marker?.[2]?.trim() || null,
+    text: marker ? value.slice(marker[0].length).trim() : value.trim()
+  };
+};
+
+const hasNamedMessageMarker = block => /^>\s*\[[←→]\s+[^\]]+\]\s*/m.test(block);
+
+const messagesHtml = block => {
+  const paragraphs = block
     .split("\n")
-    .map(line => line.replace(/^>\s?/, "").trim())
+    .map(line => line.replace(/^>\s?/, ""))
     .join("\n")
-    .trim();
-
-  if (!text.includes("\n") && text.length <= 160) {
-    return `<p class="thought">${inlineMarkdown(text)}</p>`;
-  }
-
-  const paragraphs = text
     .split(/\n{2,}/)
-    .map(part => `<p>${inlineMarkdown(part.replace(/\n/g, " ").trim())}</p>`)
+    .map(part => parseMessageParagraph(part.replace(/\n/g, " ").trim()))
+    .filter(part => part.text);
+
+  const bubbles = paragraphs
+    .map(paragraph => {
+      const direction = paragraph.direction ?? "neutral";
+      const author = paragraph.author
+        ? `        <span class="message-author">${escapeHtml(paragraph.author)}</span>\n`
+        : "";
+      return `      <div class="message message--${direction}">\n${author}        <p class="message-bubble message-bubble--${direction}">${inlineMarkdown(paragraph.text)}</p>\n      </div>`;
+    })
     .join("\n");
 
-  return `<blockquote>\n${paragraphs}\n</blockquote>`;
+  return `    <div class="messages" role="group" aria-label="Conversation par messagerie">\n${bubbles}\n    </div>`;
+};
+
+const blockquoteHtml = block => {
+  const paragraphs = block
+    .split("\n")
+    .map(line => line.replace(/^>\s?/, ""))
+    .join("\n")
+    .split(/\n{2,}/)
+    .map(part => part.replace(/\n/g, " ").replace(/^\s*\[[←→]\]\s*/, "").trim())
+    .filter(Boolean)
+    .map(paragraph => `      <p>${inlineMarkdown(paragraph)}</p>`)
+    .join("\n");
+
+  return `    <blockquote>\n${paragraphs}\n    </blockquote>`;
 };
 
 const markdownToBlocks = markdown => {
@@ -209,13 +196,16 @@ const markdownToBlocks = markdown => {
   return blocks;
 };
 
-const renderChapterBody = markdown => {
+const renderChapterBody = (markdown, chapter) => {
   const blocks = markdownToBlocks(markdown);
   const openingIndexes = blocks
     .map((block, index) => ({ block, index }))
     .filter(({ block }) => block.type === "paragraph" && !isDialogue(block.text))
     .slice(0, 2)
     .map(({ index }) => index);
+
+  const [openingStart, openingEnd] = openingIndexes;
+  const hasOpeningClose = openingIndexes.length >= 2;
 
   return blocks
     .map((block, index) => {
@@ -224,17 +214,20 @@ const renderChapterBody = markdown => {
       }
 
       if (block.type === "blockquote") {
-        return blockquoteHtml(block.text)
+        return (hasNamedMessageMarker(block.text) ? messagesHtml(block.text) : blockquoteHtml(block.text))
           .split("\n")
           .map(line => `      ${line}`)
           .join("\n");
       }
 
       const html = `      ${paragraphHtml(block.text)}`;
-      if (index === openingIndexes[0]) {
+      if (index === openingStart && hasOpeningClose) {
         return `    <section class="opening">\n\n${html}`;
       }
-      if (index === openingIndexes[1]) {
+      if (index === openingStart && !hasOpeningClose) {
+        return `    <section class="opening">\n\n${html}\n\n    </section>`;
+      }
+      if (index === openingEnd) {
         return `${html}\n\n    </section>`;
       }
       return html;
@@ -244,7 +237,7 @@ const renderChapterBody = markdown => {
 
 const plainTextForStats = markdown =>
   stripFirstHeading(normalizeMarkdown(markdown))
-    .replace(/^>\s?/gm, "")
+    .replace(/^>\s?(?:\[[←→](?:\s+[^\]]+)?\]\s*)?/gm, "")
     .replace(/^\*{3,}$/gm, " ")
     .replace(/[`*_#[\]()]/g, " ")
     .replace(/\s+/g, " ")
@@ -270,15 +263,25 @@ const renderReaderActions = () => `      <div class="reader-actions" aria-label=
           <span>Thème</span>
           <select data-theme-select aria-label="Choisir le thème de lecture">
             <option value="paper">Papier</option>
+            <option value="sepia">Sépia</option>
             <option value="night">Nuit</option>
             <option value="lycoris">Lycoris</option>
             <option value="lion">Lion</option>
           </select>
         </label>
-        <button class="reader-button" type="button" data-font-decrease aria-label="Réduire la taille du texte" title="Réduire la taille du texte">A−</button>
-        <button class="reader-button" type="button" data-font-reset aria-label="Réinitialiser la taille du texte" title="Réinitialiser la taille du texte">A</button>
-        <button class="reader-button" type="button" data-font-increase aria-label="Augmenter la taille du texte" title="Augmenter la taille du texte">A+</button>
+        <button class="reader-button" type="button" data-theme-toggle aria-pressed="false" aria-label="Basculer en thème nuit" title="Basculer en thème nuit">☾</button>
+        <button class="reader-button" type="button" data-width-toggle aria-label="Changer la largeur de colonne" title="Changer la largeur de colonne (W)">⇿</button>
+        <button class="reader-button" type="button" data-font-decrease aria-label="Réduire la taille du texte" title="Réduire la taille du texte (−)">A−</button>
+        <button class="reader-button" type="button" data-font-reset aria-label="Réinitialiser la taille du texte" title="Réinitialiser la taille du texte (0)">A</button>
+        <button class="reader-button" type="button" data-font-increase aria-label="Augmenter la taille du texte" title="Augmenter la taille du texte (+)">A+</button>
       </div>`;
+
+const renderHead = (title, cssHref, jsHref, assets) =>
+  `  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${escapeHtml(title)}</title>
+  <link rel="stylesheet" href="${cssHref}?v=${assets.css}" />
+  <script src="${jsHref}?v=${assets.js}" defer></script>`;
 
 const navItem = (chapter, kind) => {
   if (!chapter) {
@@ -290,24 +293,22 @@ const navItem = (chapter, kind) => {
   return `      <a class="${kind}" href="${chapter.output}">${escapeHtml(label)}</a>`;
 };
 
-const renderChapterPage = (chapter, previous, next, markdown) => {
+const renderChapterPage = (chapter, previous, next, markdown, assets) => {
   const words = countWords(markdown);
   const formattedWords = `${formatNumber(words)} mots`;
+  const minutes = Math.max(1, Math.round(words / wordsPerMinute));
   const time = readingTime(words);
   const chapterNumber = chapter.number ? `Chapitre ${chapter.number}` : "Chapitre";
   const pageTitle = chapter.number ? `${chapter.title} — Chapitre ${chapter.number}` : chapter.title;
+  const slug = chapter.output.replace(/\.html$/, "");
 
   return `<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>${escapeHtml(pageTitle)}</title>
-  <link rel="stylesheet" href="../assets/styles.css" />
-  <script src="../assets/reader.js" defer></script>
+${renderHead(pageTitle, "../assets/styles.css", "../assets/reader.js", assets)}
 </head>
 
-<body class="chapter-page">
+<body class="chapter-page" data-chapter="${escapeHtml(slug)}" data-reading-minutes="${minutes}">
   <div class="reading-progress" role="progressbar" aria-label="Progression de lecture" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-reading-progress>
     <div class="reading-progress__bar" data-reading-progress-bar></div>
   </div>
@@ -331,7 +332,7 @@ ${renderReaderActions()}
       <span>${time}</span>
     </div>
 
-${renderChapterBody(markdown)}
+${renderChapterBody(markdown, chapter)}
 
     <p class="final-stars">✦ ✦ ✦</p>
 
@@ -346,14 +347,10 @@ ${navItem(next, "next")}
 `;
 };
 
-const renderIndex = chapterStats => `<!DOCTYPE html>
+const renderIndex = (chapterStats, assets) => `<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Table des chapitres</title>
-  <link rel="stylesheet" href="assets/styles.css" />
-  <script src="assets/reader.js" defer></script>
+${renderHead("Table des chapitres", "assets/styles.css", "assets/reader.js", assets)}
 </head>
 
 <body>
@@ -361,7 +358,7 @@ const renderIndex = chapterStats => `<!DOCTYPE html>
 
   <header class="site-topline" aria-label="Réglages du site">
     <div class="site-tools">
-      <a class="home-link" href="index.html" aria-current="page">Table</a>
+      <a class="home-link is-current" href="index.html" aria-current="page">Table</a>
 ${renderReaderActions()}
     </div>
   </header>
@@ -410,7 +407,7 @@ ${chapterStats
 </html>
 `;
 
-const getSelectedChapters = slug => {
+const getSelectedChapters = (chapters, slug) => {
   if (!slug) return chapters;
 
   const selected = chapters.filter(
@@ -426,6 +423,11 @@ const getSelectedChapters = slug => {
 
   return selected;
 };
+
+const computeAssetFingerprints = async () => ({
+  css: await fingerprint(path.join(layoutRoot, "assets/styles.css")),
+  js: await fingerprint(path.join(layoutRoot, "assets/reader.js"))
+});
 
 const writeIfChanged = async (file, content, checkOnly) => {
   let current = null;
@@ -444,6 +446,8 @@ const writeIfChanged = async (file, content, checkOnly) => {
 };
 
 const buildConfiguredChapters = async ({ checkOnly, chapterSlug }) => {
+  const chapters = await loadChapters();
+  const assets = await computeAssetFingerprints();
   const markdownByOutput = new Map();
   const stats = [];
 
@@ -459,7 +463,7 @@ const buildConfiguredChapters = async ({ checkOnly, chapterSlug }) => {
     });
   }
 
-  const selected = getSelectedChapters(chapterSlug);
+  const selected = getSelectedChapters(chapters, chapterSlug);
   const changed = [];
 
   for (const chapter of selected) {
@@ -468,7 +472,8 @@ const buildConfiguredChapters = async ({ checkOnly, chapterSlug }) => {
       chapter,
       chapters[index - 1],
       chapters[index + 1],
-      markdownByOutput.get(chapter.output)
+      markdownByOutput.get(chapter.output),
+      assets
     );
     const file = path.join(chaptersDir, chapter.output);
     if (await writeIfChanged(file, html, checkOnly)) {
@@ -477,7 +482,7 @@ const buildConfiguredChapters = async ({ checkOnly, chapterSlug }) => {
   }
 
   if (!chapterSlug) {
-    const indexHtml = renderIndex(stats);
+    const indexHtml = renderIndex(stats, assets);
     const indexFile = path.join(layoutRoot, "index.html");
     if (await writeIfChanged(indexFile, indexHtml, checkOnly)) {
       changed.push("index.html");
@@ -492,6 +497,7 @@ const buildSingleFile = async ({ source, title, subtitle, output, number, checkO
     throw new Error("Pour un fichier isolé, il faut fournir --source, --title et --output.");
   }
 
+  const assets = await computeAssetFingerprints();
   const chapter = {
     number: number ?? "",
     title,
@@ -500,16 +506,63 @@ const buildSingleFile = async ({ source, title, subtitle, output, number, checkO
     excerpt: ""
   };
   const markdown = await readFile(path.resolve(repoRoot, source), "utf8");
-  const html = renderChapterPage(chapter, null, null, markdown);
+  const html = renderChapterPage(chapter, null, null, markdown, assets);
   const outputFile = path.resolve(layoutRoot, output);
   const changed = await writeIfChanged(outputFile, html, checkOnly);
   return changed ? [path.relative(layoutRoot, outputFile)] : [];
+};
+
+const debounce = (fn, ms) => {
+  let handle = null;
+  return (...args) => {
+    if (handle) clearTimeout(handle);
+    handle = setTimeout(() => {
+      handle = null;
+      fn(...args);
+    }, ms);
+  };
+};
+
+const runWatch = async () => {
+  const rebuild = debounce(async () => {
+    try {
+      const changed = await buildConfiguredChapters({ checkOnly: false, chapterSlug: null });
+      const stamp = new Date().toLocaleTimeString("fr-FR");
+      console.log(
+        changed.length
+          ? `[${stamp}] Régénéré : ${changed.join(", ")}`
+          : `[${stamp}] Aucun changement détecté.`
+      );
+    } catch (error) {
+      console.error(`Erreur de génération : ${error.message}`);
+    }
+  }, 200);
+
+  await rebuild();
+  console.log("Surveillance des sources... Ctrl+C pour quitter.");
+
+  const watched = [
+    { target: path.join(repoRoot, "chapitres"), options: { recursive: true } },
+    { target: chaptersConfig, options: {} },
+    { target: path.join(layoutRoot, "assets"), options: { recursive: true } }
+  ];
+
+  for (const { target, options } of watched) {
+    try {
+      watch(target, options, rebuild);
+    } catch (error) {
+      console.warn(`Surveillance impossible pour ${target} : ${error.message}`);
+    }
+  }
+
+  return new Promise(() => {});
 };
 
 const parseArgs = argv => {
   const args = {
     checkOnly: false,
     help: false,
+    watch: false,
     chapterSlug: null,
     source: null,
     title: null,
@@ -523,6 +576,7 @@ const parseArgs = argv => {
     const next = () => argv[++index];
 
     if (arg === "--check") args.checkOnly = true;
+    else if (arg === "--watch") args.watch = true;
     else if (arg === "--help" || arg === "-h") args.help = true;
     else if (arg === "--chapter") args.chapterSlug = next();
     else if (arg === "--source") args.source = next();
@@ -541,11 +595,13 @@ const printHelp = () => {
   node layout/scripts/build-layout.mjs
   node layout/scripts/build-layout.mjs --chapter la-baronne-radieuse-de-vinterhavn
   node layout/scripts/build-layout.mjs --check
+  node layout/scripts/build-layout.mjs --watch
   node layout/scripts/build-layout.mjs --source chapitres/mon-chapitre.md --title "Mon chapitre" --subtitle "Lieu" --number 6 --output chapitres/mon-chapitre.html
 
 Options:
   --chapter   Régénère un seul chapitre configuré, par numéro, slug ou titre exact.
   --check     Vérifie si la génération modifierait des fichiers, sans écrire.
+  --watch     Reste actif et reconstruit dès qu'une source change.
   --source    Convertit un Markdown isolé au lieu des chapitres configurés.
   --title     Titre de la page pour un Markdown isolé.
   --subtitle  Sous-titre de la page pour un Markdown isolé.
@@ -559,6 +615,11 @@ const main = async () => {
 
   if (args.help) {
     printHelp();
+    return;
+  }
+
+  if (args.watch) {
+    await runWatch();
     return;
   }
 

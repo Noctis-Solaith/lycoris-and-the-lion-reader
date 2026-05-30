@@ -1,0 +1,112 @@
+[
+  {
+    "number": 1,
+    "title": "Le Bal des Trois Lunes",
+    "focalCharacter": "Lycoris",
+    "focalPronoun": "elle",
+    "subtitle": "Séricé, sous la coupole des constellations",
+    "source": "chapitres/1_Bal_des_Trois_Lunes/v9.md",
+    "output": "bal-des-trois-lunes.html",
+    "excerpt": "Lycoris Comnène domine sa propre fête tandis que la nuit, les alliances et les présences plus discrètes se mettent en mouvement."
+  },
+  {
+    "number": 2,
+    "title": "Le Lendemain des Trois Lunes",
+    "focalCharacter": "Geb",
+    "focalPronoun": "il",
+    "subtitle": "Séricé, au matin d’après",
+    "source": "chapitres/2_Un_Matin_pour_Deux_Frontieres/v10.md",
+    "output": "lendemain-des-trois-lunes.html",
+    "excerpt": "Geb Ramses trouve le secret dans un couloir, avant le café, au matin d’une maison encore traversée par la fête."
+  },
+  {
+    "number": 3,
+    "title": "Les papiers en attente",
+    "focalCharacter": "Lycoris",
+    "focalPronoun": "elle",
+    "subtitle": "La Distance des Roses",
+    "source": "chapitres/2.1_La_Distance_des_Roses/chapitre_01_sortir_du_bal_vF.md",
+    "output": "les-papiers-en-attente.html",
+    "excerpt": "Le troisième matin après le Bal des Trois Lunes, Séricé a enfin cessé de briller, mais les traces de la nuit demandent encore leur dû."
+  },
+  {
+    "number": 4,
+    "title": "Mesures et distances",
+    "focalCharacter": "Sirius",
+    "focalPronoun": "il",
+    "subtitle": "Frontière de Tyr, royaume de Djinn",
+    "source": "chapitres/2.2_Mesures_et_distances/v5.md",
+    "output": "mesures-et-distances.html",
+    "excerpt": "À la frontière de Tyr, la République mesure les lignes de Djinn tandis que Sirius pèse chaque réponse avant qu’elle ne devienne politique."
+  },
+  {
+    "number": 5,
+    "title": "Les invitations imprudentes",
+    "focalCharacter": "Lycoris",
+    "focalPronoun": "elle",
+    "subtitle": "Pergame, Vinterhavn et autres mensonges utiles",
+    "source": "chapitres/2.3_Les_invitations_imprudentes/chapitre_03_v2.md",
+    "output": "les-invitations-imprudentes.html",
+    "excerpt": "Dans un bureau déjà envahi par les preuves, Lycoris voit les invitations, les bijoux et les rumeurs transformer Vinterhavn en terrain dangereux."
+  },
+  {
+    "number": 6,
+    "title": "La Baronne radieuse de Vinterhavn",
+    "focalCharacter": "Lycoris",
+    "focalPronoun": "elle",
+    "subtitle": "Djinn, Vinterhavn et les alliances que la presse croit découvrir",
+    "source": "chapitres/2.4_La_Baronne_Radieuse_de_Vinterhavn/chapitre_04_v2.md",
+    "output": "la-baronne-radieuse-de-vinterhavn.html",
+    "excerpt": "Quand Le Diwan d'Héliopolis fait de Lycoris une hypothèse diplomatique, la plaisanterie mondaine se change en calcul politique."
+  },
+  {
+    "number": 7,
+    "title": "Pour le bien de l'armée",
+    "focalCharacter": "Sirius",
+    "focalPronoun": "il",
+    "subtitle": "Héliopolis, caserne royale",
+    "source": "chapitres/2.4bis_Pour_le_bien_de_l_armee/chapitre_04bis_v1.md",
+    "output": "pour-le-bien-de-l-armee.html",
+    "excerpt": "À la caserne royale, la fatigue du général croise les plaisanteries des officiers, les images de presse et ce que l'armée préfère taire."
+  },
+  {
+    "number": 8,
+    "title": "Le prince sous la pluie",
+    "focalCharacter": "Lycoris",
+    "focalPronoun": "elle",
+    "subtitle": "Séricé, archives Villiers et pluie d'automne",
+    "source": "chapitres/2.5_Le_Roi_des_Roses/chapitre_05_le_prince_sous_la_pluie_v3.md",
+    "output": "le-prince-sous-la-pluie.html",
+    "excerpt": "Sous la pluie de Séricé, une caisse des fonds Villiers rouvre les pistes anciennes tandis que Lycoris apprend à mesurer ce que la maison conserve."
+  },
+  {
+    "number": 9,
+    "title": "Le Roi des Roses",
+    "focalCharacter": "Lycoris",
+    "focalPronoun": "elle",
+    "subtitle": "Pergame, la Maison des Verrières",
+    "source": "chapitres/2.5_Le_Roi_des_Roses/chapitre_06_le_roi_des_roses_v3.md",
+    "output": "le-roi-des-roses.html",
+    "excerpt": "Aux Ateliers, les archives et la prochaine collection rapprochent Lycoris du nom qu'elle cherchait derrière le lion et les roses."
+  },
+  {
+    "number": 10,
+    "title": "La maison après la pluie",
+    "focalCharacter": "Lycoris",
+    "focalPronoun": "elle",
+    "subtitle": "Séricé, le pavillon d'entraînement",
+    "source": "chapitres/2.5_Le_Roi_des_Roses/chapitre_07_la_maison_apres_la_pluie_v5.md",
+    "output": "la-maison-apres-la-pluie.html",
+    "excerpt": "Au pavillon de Séricé, Lycoris et Alstroemeria laissent les gestes, les lames et les vieilles habitudes dire ce que la journée a retenu."
+  },
+  {
+    "number": 11,
+    "title": "Les noms qu'on ne dit pas",
+    "focalCharacter": "Lycoris",
+    "focalPronoun": "elle",
+    "subtitle": "Séricé, au dîner",
+    "source": "chapitres/2.5_Le_Roi_des_Roses/chapitre_08_les_noms_qu_on_ne_dit_pas_v1.md",
+    "output": "les-noms-qu-on-ne-dit-pas.html",
+    "excerpt": "Autour d'un dîner plus calme qu'à l'ordinaire, la famille Comnène approche les noms que chacun évite encore de prononcer."
+  }
+]
