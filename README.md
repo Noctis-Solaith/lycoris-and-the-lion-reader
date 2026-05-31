@@ -28,6 +28,12 @@ Pour ne reconstruire qu'un chapitre :
 node layout/scripts/build-layout.mjs --chapter la-baronne-radieuse-de-vinterhavn
 ```
 
+L'option `--chapter` accepte également le numéro, le titre exact ou le nom du fichier Markdown, avec ou sans extension :
+
+```bash
+node layout/scripts/build-layout.mjs --chapter chapitre_07_la_maison_apres_la_pluie_v5
+```
+
 Pour vérifier si le HTML est à jour sans rien écrire :
 
 ```bash

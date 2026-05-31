@@ -407,14 +407,31 @@ ${chapterStats
 </html>
 `;
 
+const normalizeChapterSelector = value =>
+  value
+    .replaceAll("\\", "/")
+    .replace(/\.(?:html|md)$/i, "")
+    .toLowerCase();
+
 const getSelectedChapters = (chapters, slug) => {
   if (!slug) return chapters;
 
+  const selector = normalizeChapterSelector(slug);
+
   const selected = chapters.filter(
-    chapter =>
-      chapter.output.replace(/\.html$/, "") === slug ||
-      String(chapter.number) === slug ||
-      chapter.title.toLowerCase() === slug.toLowerCase()
+    chapter => {
+      const output = normalizeChapterSelector(chapter.output);
+      const source = normalizeChapterSelector(chapter.source);
+
+      return (
+        output === selector ||
+        path.posix.basename(output) === selector ||
+        source === selector ||
+        path.posix.basename(source) === selector ||
+        String(chapter.number) === selector ||
+        chapter.title.toLowerCase() === selector
+      );
+    }
   );
 
   if (!selected.length) {
@@ -599,7 +616,7 @@ const printHelp = () => {
   node layout/scripts/build-layout.mjs --source chapitres/mon-chapitre.md --title "Mon chapitre" --subtitle "Lieu" --number 6 --output chapitres/mon-chapitre.html
 
 Options:
-  --chapter   Régénère un seul chapitre configuré, par numéro, slug ou titre exact.
+  --chapter   Régénère un seul chapitre configuré, par numéro, slug, titre exact ou nom de fichier Markdown.
   --check     Vérifie si la génération modifierait des fichiers, sans écrire.
   --watch     Reste actif et reconstruit dès qu'une source change.
   --source    Convertit un Markdown isolé au lieu des chapitres configurés.
