@@ -108,5 +108,15 @@
     "source": "chapitres/2.5_Le_Roi_des_Roses/chapitre_08_les_noms_qu_on_ne_dit_pas_v1.md",
     "output": "les-noms-qu-on-ne-dit-pas.html",
     "excerpt": "Autour d'un dîner plus calme qu'à l'ordinaire, la famille Comnène approche les noms que chacun évite encore de prononcer."
+  },
+  {
+    "number": 12,
+    "title": "Le Miracle d'Albâtre",
+    "focalCharacter": "Sirius",
+    "focalPronoun": "il",
+    "subtitle": "Arqa, frontière de Tyr",
+    "source": "chapitres/2.5_Le_Roi_des_Roses/chapitre_11_le_miracle_d_albatre_v1.md",
+    "output": "le-miracle-d-albatre.html",
+    "excerpt": "Dans le canyon d'Arqa, Sirius tente de tenir une ligne de repli tandis qu'une anomalie blanche bouleverse les certitudes de l'armée royale."
   }
 ]
